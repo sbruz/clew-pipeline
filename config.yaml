@@ -1,0 +1,23 @@
+book_id: 1
+source_lang: "en"
+target_lang: "ru"
+
+steps:
+  preprocess: true
+  paragraph_split: true
+  chapter_split: true
+  simplify_text: true
+  translate_sentences: true                         # 🔠 перевод original текста
+  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
+  translate_words: true
+  translate_words_simplified: true
+  voice_narration: true
+  voice_narration_simplified: true
+  export: true
+
+limits:
+  max_chars_per_request: 50000
+
+options:
+  log_voice: true
+  max_voiced_paragraphs: -1
