@@ -14,7 +14,7 @@ def get_voice_plan_for_book(title: str, author: str, voices: list[dict]) -> Voic
 
     prompt = (
         "Ты — помощник по озвучке книг. Выбери один наиболее подходящий голос для рассказчика этой книги, основываясь на описаниях голосов с учетом жанра и сюжета произведения. "
-        "Выбирай только из тех голосов, у которых accent = american. "
+        # "Выбирай из тех голосов, у которых американский акцент и желательно пометка warm. "
         "Дай четкие однозначные рекомендацию по интонации и стилю подачи на английском языке, не вдаваясь в подробности. "
         "Верни строго объект с полями voice_id, voice_name, voice_description и narration_style."
     )
@@ -73,7 +73,7 @@ def generate_audio_for_chapters(
     voice_settings = {
         "stability": 0.5,
         "similarity_boost": 0.7,
-        "speed": 0.8 if is_simplified else 1.0
+        "speed": 0.7 if is_simplified else 0.9
     }
 
     counter = 0
@@ -129,7 +129,7 @@ def generate_audio_for_chapters(
                     "text": text_to_speak,
                     "previous_text": previous_text,
                     "next_text": next_text,
-                    "model_id": "eleven_monolingual_v1",
+                    "model_id": "eleven_multilingual_v2",  # "eleven_monolingual_v1",
                     "voice_settings": voice_settings,
                     "timestamp_format": ["word"]
                 }

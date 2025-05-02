@@ -1,7 +1,7 @@
 from utils.supabase_client import load_book_text, save_formatted_text, check_supabase_connection
 from utils.supabase_client import get_supabase_client
 from utils.elevenlabs_client import get_elevenlabs_voices
-from steps import preprocess, voice, export
+from steps import preprocess, voice, export, goals, tasks
 import yaml
 
 from dotenv import load_dotenv
@@ -88,7 +88,7 @@ if steps_enabled.get("voice_narration"):
     title = book_info.data.get("title", "Без названия")
     author = book_info.data.get("author", "Неизвестный автор")
 
-    voices = get_elevenlabs_voices()
+    voices = get_elevenlabs_voices(source_lang)
     voice_plan = voice.get_voice_plan_for_book(title, author, voices)
     voice.generate_audio_for_chapters(
         book_id=book_id,
@@ -108,7 +108,7 @@ if steps_enabled.get("voice_narration_simplified"):
     title = book_info.data.get("title", "Без названия")
     author = book_info.data.get("author", "Неизвестный автор")
 
-    voices = get_elevenlabs_voices()
+    voices = get_elevenlabs_voices(source_lang)
     voice_plan = voice.get_voice_plan_for_book(title, author, voices)
     voice.generate_audio_for_chapters(
         book_id=book_id,
@@ -124,3 +124,65 @@ if steps_enabled.get("voice_narration_simplified"):
 if steps_enabled.get("export"):
     export.export_book_json(
         book_id, source_lang=source_lang, target_lang=target_lang)
+
+if steps_enabled.get("chapters_goals"):
+    goals.generate_chapter_goals(
+        book_id, "text_by_chapters_sentence_translation_words", "chapters_goals", target_lang)
+
+if steps_enabled.get("chapters_goals_simplified"):
+    goals.generate_chapter_goals(
+        book_id, "text_by_chapters_simplified_sentence_translation_words", "chapters_goals_simplified", target_lang)
+
+if steps_enabled.get("tasks_true_or_false"):
+    tasks.generate_paragraph_tasks(
+        book_id,
+        "text_by_chapters_sentence_translation_words",
+        "tasks_true_or_false",
+        target_lang
+    )
+
+if steps_enabled.get("tasks_true_or_false_simplified"):
+    tasks.generate_paragraph_tasks(
+        book_id,
+        "text_by_chapters_simplified_sentence_translation_words",
+        "tasks_true_or_false_simplified",
+        target_lang
+    )
+
+if steps_enabled.get("tasks_how_to_translate"):
+    tasks.add_how_to_translate_tasks(
+        book_id=book_id,
+        words_field="text_by_chapters_sentence_translation_words",
+        base_task_field="tasks_true_or_false",
+        result_field="tasks_truefalse_howto",
+        target_lang=target_lang,
+        source_lang=source_lang
+    )
+
+if steps_enabled.get("tasks_how_to_translate_simplified"):
+    tasks.add_how_to_translate_tasks(
+        book_id=book_id,
+        words_field="text_by_chapters_simplified_sentence_translation_words",
+        base_task_field="tasks_true_or_false_simplified",
+        result_field="tasks_truefalse_howto_simplified",
+        target_lang=target_lang,
+        source_lang=source_lang
+    )
+
+if steps_enabled.get("tasks_two_words"):
+    tasks.add_two_words_tasks(
+        book_id=book_id,
+        words_field="text_by_chapters_sentence_translation_words",
+        base_task_field="tasks_truefalse_howto",
+        result_field="tasks_truefalse_howto_words",
+        target_lang=target_lang
+    )
+
+if steps_enabled.get("tasks_two_words_simplified"):
+    tasks.add_two_words_tasks(
+        book_id=book_id,
+        words_field="text_by_chapters_simplified_sentence_translation_words",
+        base_task_field="tasks_truefalse_howto_simplified",
+        result_field="tasks_truefalse_howto_words_simplified",
+        target_lang=target_lang
+    )

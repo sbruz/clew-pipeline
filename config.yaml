@@ -3,21 +3,31 @@ source_lang: "en"
 target_lang: "ru"
 
 steps:
-  preprocess: true
-  paragraph_split: true
-  chapter_split: true
-  simplify_text: true
-  translate_sentences: true                         # 🔠 перевод original текста
-  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
-  translate_words: true
-  translate_words_simplified: true
-  voice_narration: true
-  voice_narration_simplified: true
-  export: true
+  preprocess: false
+  paragraph_split: false
+  chapter_split: false
+  simplify_text: false
+  translate_sentences: false                         # 🔠 перевод original текста
+  translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
+  translate_words: false
+  translate_words_simplified: false
+  tasks_true_or_false: false
+  tasks_true_or_false_simplified: false
+  tasks_how_to_translate: false
+  tasks_how_to_translate_simplified: false
+  tasks_two_words: true
+  tasks_two_words_simplified: true
+  voice_narration: false
+  voice_narration_simplified: false
+  export: false
+  # chapters_goals: false
+  # chapters_goals_simplified: false
+
+
 
 limits:
   max_chars_per_request: 50000
 
 options:
   log_voice: true
-  max_voiced_paragraphs: -1
+  max_voiced_paragraphs: 2                           # -1 безлимит
