@@ -57,8 +57,8 @@ def generate_audio_for_chapters(
 
     structure = ChapterStructure.model_validate_json(text)
     api_key = os.getenv("ELEVENLABS_API_KEY")
-    Path("export").mkdir(exist_ok=True)
-    output_path = Path("export") / f"voice_book_{book_id}"
+    Path(f"export_book_{book_id}").mkdir(exist_ok=True)
+    output_path = Path(f"export_book_{book_id}") / f"voice_book_{book_id}"
     output_path.mkdir(exist_ok=True)
 
     if log_voice:

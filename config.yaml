@@ -1,4 +1,4 @@
-book_id: 1
+book_id: 5
 source_lang: "en"
 target_lang: "ru"
 
@@ -15,14 +15,13 @@ steps:
   tasks_true_or_false_simplified: false
   tasks_how_to_translate: false
   tasks_how_to_translate_simplified: false
-  tasks_two_words: true
-  tasks_two_words_simplified: true
-  voice_narration: false
-  voice_narration_simplified: false
-  export: false
+  tasks_two_words: false
+  tasks_two_words_simplified: false
+  voice_narration: true
+  voice_narration_simplified: true
+  export: true
   # chapters_goals: false
   # chapters_goals_simplified: false
-
 
 
 limits:
@@ -30,4 +29,4 @@ limits:
 
 options:
   log_voice: true
-  max_voiced_paragraphs: 2                           # -1 безлимит
+  max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит

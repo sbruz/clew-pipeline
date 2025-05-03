@@ -81,50 +81,6 @@ if steps_enabled.get("translate_words_simplified"):
         max_chars=max_chars
     )
 
-if steps_enabled.get("voice_narration"):
-    supabase = get_supabase_client()
-    book_info = supabase.table("books").select(
-        "title, author").eq("id", book_id).single().execute()
-    title = book_info.data.get("title", "Без названия")
-    author = book_info.data.get("author", "Неизвестный автор")
-
-    voices = get_elevenlabs_voices(source_lang)
-    voice_plan = voice.get_voice_plan_for_book(title, author, voices)
-    voice.generate_audio_for_chapters(
-        book_id=book_id,
-        is_simplified=False,
-        text_field="text_by_chapters",
-        voice_plan=voice_plan,
-        output_dir=f"voice_book_{book_id}",
-        voices_list=voices,
-        log_voice=config.get("options", {}).get("log_voice", False),
-        max_paragraphs=max_paragraphs
-    )
-
-if steps_enabled.get("voice_narration_simplified"):
-    supabase = get_supabase_client()
-    book_info = supabase.table("books").select(
-        "title, author").eq("id", book_id).single().execute()
-    title = book_info.data.get("title", "Без названия")
-    author = book_info.data.get("author", "Неизвестный автор")
-
-    voices = get_elevenlabs_voices(source_lang)
-    voice_plan = voice.get_voice_plan_for_book(title, author, voices)
-    voice.generate_audio_for_chapters(
-        book_id=book_id,
-        is_simplified=True,
-        text_field="text_by_chapters_simplified",
-        voice_plan=voice_plan,
-        output_dir=f"voice_book_{book_id}",
-        voices_list=voices,
-        log_voice=config.get("options", {}).get("log_voice", False),
-        max_paragraphs=max_paragraphs
-    )
-
-if steps_enabled.get("export"):
-    export.export_book_json(
-        book_id, source_lang=source_lang, target_lang=target_lang)
-
 if steps_enabled.get("chapters_goals"):
     goals.generate_chapter_goals(
         book_id, "text_by_chapters_sentence_translation_words", "chapters_goals", target_lang)
@@ -186,3 +142,47 @@ if steps_enabled.get("tasks_two_words_simplified"):
         result_field="tasks_truefalse_howto_words_simplified",
         target_lang=target_lang
     )
+
+if steps_enabled.get("voice_narration"):
+    supabase = get_supabase_client()
+    book_info = supabase.table("books").select(
+        "title, author").eq("id", book_id).single().execute()
+    title = book_info.data.get("title", "Без названия")
+    author = book_info.data.get("author", "Неизвестный автор")
+
+    voices = get_elevenlabs_voices(source_lang)
+    voice_plan = voice.get_voice_plan_for_book(title, author, voices)
+    voice.generate_audio_for_chapters(
+        book_id=book_id,
+        is_simplified=False,
+        text_field="text_by_chapters",
+        voice_plan=voice_plan,
+        output_dir=f"voice_book_{book_id}",
+        voices_list=voices,
+        log_voice=config.get("options", {}).get("log_voice", False),
+        max_paragraphs=max_paragraphs
+    )
+
+if steps_enabled.get("voice_narration_simplified"):
+    supabase = get_supabase_client()
+    book_info = supabase.table("books").select(
+        "title, author").eq("id", book_id).single().execute()
+    title = book_info.data.get("title", "Без названия")
+    author = book_info.data.get("author", "Неизвестный автор")
+
+    voices = get_elevenlabs_voices(source_lang)
+    voice_plan = voice.get_voice_plan_for_book(title, author, voices)
+    voice.generate_audio_for_chapters(
+        book_id=book_id,
+        is_simplified=True,
+        text_field="text_by_chapters_simplified",
+        voice_plan=voice_plan,
+        output_dir=f"voice_book_{book_id}",
+        voices_list=voices,
+        log_voice=config.get("options", {}).get("log_voice", False),
+        max_paragraphs=max_paragraphs
+    )
+
+if steps_enabled.get("export"):
+    export.export_book_json(
+        book_id, source_lang=source_lang, target_lang=target_lang)
