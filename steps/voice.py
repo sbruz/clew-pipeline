@@ -4,6 +4,7 @@ import base64
 import requests
 from pathlib import Path
 from openai import OpenAI
+from typing import List
 from schemas.voice_schema import VoicePlan
 from schemas.chapter_schema import ChapterStructure
 from utils.supabase_client import get_supabase_client
