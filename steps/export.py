@@ -113,3 +113,14 @@ def export_book_json(book_id: int, source_lang: str, target_lang: str):
         json.dump(result, f, ensure_ascii=False, indent=2)
 
     print(f"✅ Экспортировано: {output_path}")
+
+    # Только первая глава
+    chapter1 = {
+        **result,
+        "chapters": [result["chapters"][0]]
+    }
+
+    chapter1_path = output_dir / f"book_{book_id}_merged_chapter1.json"
+    with open(chapter1_path, "w", encoding="utf-8") as f:
+        json.dump(chapter1, f, ensure_ascii=False, indent=2)
+    print(f"✅ Экспортировано: {chapter1_path}")

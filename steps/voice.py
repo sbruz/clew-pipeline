@@ -73,7 +73,7 @@ def generate_audio_for_chapters(
     voice_settings = {
         "stability": 0.5,
         "similarity_boost": 0.7,
-        "speed": 0.7 if is_simplified else 0.9
+        "speed": 0.8 if is_simplified else 0.9
     }
 
     counter = 0
@@ -117,6 +117,9 @@ def generate_audio_for_chapters(
                                        1].paragraph_content if idx > 0 else ""
             next_text = paragraphs[idx +
                                    1].paragraph_content if idx < len(paragraphs) - 1 else ""
+
+            # Joanne qJ9ZlQB4JvsjkfWaVOzh Jarnathan c6SfcYrb2t09NHXiT80T Victoria Story XoUkt2bf6DlvSzRmvA8X
+            # voice_plan.voice_id = "qJ9ZlQB4JvsjkfWaVOzh"
 
             response = requests.post(
                 f"https://api.elevenlabs.io/v1/text-to-speech/{voice_plan.voice_id}/with-timestamps",
