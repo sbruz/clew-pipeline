@@ -6,6 +6,42 @@ from schemas.export_schema import LocalizedMeta
 from openai import OpenAI
 
 
+import os
+import json
+from pathlib import Path
+from utils.supabase_client import get_supabase_client
+from openai import OpenAI
+from pydantic import BaseModel
+
+
+class LocalizedMeta(BaseModel):
+    localized_title: str
+    localized_author: str
+
+
+def fetch_localized_title_and_author(title: str, author: str, year: str, target_lang: str) -> LocalizedMeta:
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    system_prompt = (
+        f"Ты литературный редактор. "
+        f"Определи, под каким названием книга '{title}' автора '{author}' {year} года "
+        f"чаще всего публиковалась на языке {target_lang}. "
+        f"Также переведи имя автора на язык {target_lang}, если оно имеет общепринятый перевод. "
+        f"Верни строго JSON-объект в соответствии со схемой."
+    )
+
+    completion = client.beta.chat.completions.parse(
+        model="gpt-4.1",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"title: {title}\nauthor: {author}\nyear: {year}"}
+        ],
+        response_format=LocalizedMeta,
+    )
+
+    return completion.choices[0].message.parsed
+
+
 def export_book_json(book_id: int, source_lang: str, target_lang: str):
     supabase = get_supabase_client()
 
@@ -72,19 +108,17 @@ def export_book_json(book_id: int, source_lang: str, target_lang: str):
         localized_title = title
         localized_author = author
 
-    result = {
-        "title": localized_title,
-        "author": localized_author,
-        "year": year,
-        "words": meta.get("words"),
-        "genre": meta.get("genre"),
-        "set": meta.get("set"),
-        "source_lang": source_lang,
-        "target_lang": target_lang,
-        "chapters": []
-    }
+    # Подготовка директорий
+    export_base = Path("export")
+    export_base.mkdir(exist_ok=True)
 
-    # Сборка всех параграфов
+    book_dir = export_base / f"book_{book_id}_{source_lang}"
+    book_dir.mkdir(exist_ok=True)
+
+    content_dir = book_dir / f"book_{book_id}_content"
+    content_dir.mkdir(exist_ok=True)
+
+    # Экспорт по главам
     for orig_ch in original_text["chapters"]:
         chapter_number = orig_ch["chapter_number"]
         simp_ch = next((c for c in (simplified_text or {}).get(
@@ -121,26 +155,34 @@ def export_book_json(book_id: int, source_lang: str, target_lang: str):
                 }
             })
 
-        result["chapters"].append({
+        chapter_data = {
             "chapter_number": chapter_number,
             "paragraphs": paragraphs
-        })
+        }
 
-    # Папка для сохранения
-    output_dir = Path("export") / f"book_{book_id}"
-    output_dir.mkdir(parents=True, exist_ok=True)
+        chapter_path = content_dir / \
+            f"book_{book_id}_chapter{chapter_number}_{source_lang}_{target_lang}.json"
+        with open(chapter_path, "w", encoding="utf-8") as f:
+            json.dump(chapter_data, f, ensure_ascii=False, indent=2)
+        print(f"✅ Сохранена глава: {chapter_path}")
 
-    full_path = output_dir / f"book_{book_id}_merged.json"
-    with open(full_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"✅ Экспортировано: {full_path}")
+    # 📄 Сохраняем мета-информацию
+    info_data = {
+        "title": localized_title,
+        "author": localized_author,
+        "year": year,
+        "words": meta.get("words"),
+        "genre": meta.get("genre"),
+        "set": meta.get("set"),
+        "source_lang": source_lang,
+        "target_lang": target_lang
+    }
 
-    # Только первая глава
-    chapter1_path = output_dir / f"book_{book_id}_merged_chapter1.json"
-    chapter1_data = {**result, "chapters": [result["chapters"][0]]}
-    with open(chapter1_path, "w", encoding="utf-8") as f:
-        json.dump(chapter1_data, f, ensure_ascii=False, indent=2)
-    print(f"✅ Экспортировано: {chapter1_path}")
+    info_path = book_dir / \
+        f"book_{book_id}_info_{source_lang}_{target_lang}.json"
+    with open(info_path, "w", encoding="utf-8") as f:
+        json.dump(info_data, f, ensure_ascii=False, indent=2)
+    print(f"✅ Сохранена информация о книге: {info_path}")
 
 
 def fetch_localized_title_and_author(title: str, author: str, year: str, target_lang: str) -> LocalizedMeta:

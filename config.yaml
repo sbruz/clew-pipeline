@@ -1,4 +1,6 @@
-book_id: 1
+book_id: -1   # устарел. id из supabase, для экспорта всех книг -1
+book_id_start: 10
+book_id_end: 11
 source_lang: "en"
 target_lang: "ru"
 
