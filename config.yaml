@@ -1,14 +1,15 @@
 book_id: -1   # устарел. id из supabase, для экспорта всех книг -1
-book_id_start: 10
-book_id_end: 11
+book_id_start: 1
+book_id_end: 81
 source_lang: "en"
 target_lang: "ru"
 
 steps:
-  preprocess: false
-  paragraph_split: false
-  chapter_split: false
-  simplify_text: false
+  preprocess: true
+  sentence_split: true
+  paragraph_split: true
+  chapter_split: true
+  simplify_text: true
   translate_sentences: false                         # 🔠 перевод original текста
   translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
   translate_words: false
@@ -19,7 +20,7 @@ steps:
   tasks_how_to_translate_simplified: false
   tasks_two_words: false
   tasks_two_words_simplified: false
-  export: true
+  export: false
 
   voice_narration: false
   voice_narration_simplified: false
@@ -29,7 +30,7 @@ steps:
 
 
 limits:
-  max_chars_per_request: 100000
+  max_chars_per_request: 200000
 
 options:
   log_voice: true

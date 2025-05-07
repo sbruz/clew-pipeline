@@ -46,6 +46,9 @@ for book_id in range(book_id_start, book_id_end + 1):
         formatted = preprocess.run(book_text, source_lang, max_chars)
         save_formatted_text(book_id, formatted)
 
+    if steps_enabled.get("sentence_split"):
+        preprocess.split_into_sentences(book_id, source_lang, max_chars)
+
     if steps_enabled.get("paragraph_split"):
         preprocess.split_into_paragraphs(book_id, source_lang, max_chars)
 
@@ -59,7 +62,6 @@ for book_id in range(book_id_start, book_id_end + 1):
         preprocess.translate_text_structure(
             book_id=book_id,
             source_field="text_by_chapters",
-            intermediate_field="text_by_chapters_sentence",
             result_field="text_by_chapters_sentence_translation",
             source_lang=source_lang,
             target_lang=target_lang,
@@ -70,7 +72,6 @@ for book_id in range(book_id_start, book_id_end + 1):
         preprocess.translate_text_structure(
             book_id=book_id,
             source_field="text_by_chapters_simplified",
-            intermediate_field="text_by_chapters_simplified_sentence",
             result_field="text_by_chapters_simplified_sentence_translation",
             source_lang=source_lang,
             target_lang=target_lang,
