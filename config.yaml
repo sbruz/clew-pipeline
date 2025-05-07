@@ -1,12 +1,12 @@
 book_id: -1   # устарел. id из supabase, для экспорта всех книг -1
 book_id_start: 1
-book_id_end: 81
+book_id_end: 3
 source_lang: "en"
 target_lang: "ru"
 
 steps:
-  preprocess: true
-  sentence_split: true
+  preprocess: false
+  sentence_split: false
   paragraph_split: true
   chapter_split: true
   simplify_text: true
