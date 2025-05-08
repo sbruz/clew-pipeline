@@ -1,17 +1,17 @@
 book_id_start: 1
 book_id_end: 81
 source_lang: "en"
-target_lang: "ru"
+target_lang: "ru, es, fr, de, it"
 
 steps:
   preprocess: false
-  sentence_split: true
-  paragraph_split: true
-  paragraph_split_manual: true
-  chapter_split: true
-  simplify_text: true
-  translate_sentences: false                         # 🔠 перевод original текста
-  translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
+  sentence_split: false
+  paragraph_split: false
+  paragraph_split_manual: false
+  chapter_split: false
+  simplify_text: false
+  translate_sentences: true                         # 🔠 перевод original текста
+  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
   translate_words: false
   translate_words_simplified: false
   tasks_true_or_false: false

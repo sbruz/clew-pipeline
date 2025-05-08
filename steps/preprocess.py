@@ -5,7 +5,8 @@ import json
 import spacy
 from typing import Optional
 from openai import OpenAI, OpenAIError, APIConnectionError, RateLimitError, AuthenticationError
-from utils.sentence_splitter import split_into_sentences
+from utils.sentence_splitter import split_old_into_sentences
+from steps.export import fetch_localized_title_and_author
 from schemas.translation_schema import (
     ChapterParagraphSentence,
     Sentence,
@@ -218,14 +219,26 @@ def simplify_text_for_beginners(book_id: int, lang: str, max_chars: int):
         "en": "английском",
         "es": "испанском",
         "fr": "французском",
-        "de": "немецком"
+        "de": "немецком",
+        "it": "итальянском"
     }
 
     # если язык неизвестен — обобщённо
     selected_lang = lang_map.get(lang, "изначальном")
 
+    source_lang_map = {
+        "en": "английский",
+        "es": "испанский",
+        "fr": "французский",
+        "de": "немецкий",
+        "it": "итальянский"
+    }
+
+    # если язык неизвестен — обобщённо
+    source_lang_map = lang_map.get(lang, "оригинальный")
+
     system_prompt = (
-        "Ты — дружелюбный рассказчик, который помогает адаптировать главы книг для изучающих английский.\n"
+        f"Ты — дружелюбный рассказчик, который помогает адаптировать главы книг для изучающих {source_lang_map} язык.\n"
         "Правила:\n"
         "- Перепиши текст простыми словами, используя короткие, лёгкие предложения (уровень A2–B1).\n"
         "- Сохраняй разбивку на абзацы — не объединяй и не пропускай абзацы.\n"
@@ -301,15 +314,23 @@ def translate_text_structure(
     result_field: str,
     source_lang: str,
     target_lang: str,
-    max_chars: int
+    max_chars: int,
+    spacy_nlp,
+    chapter_number: Optional[int] = None
 ):
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
-    print(f"📥 Загружаем {source_field} для книги {book_id}...")
+    print(f"📥 Загружаем {source_field} и мета-данные книги {book_id}...")
     response = supabase.table("books").select(
-        source_field).eq("id", book_id).single().execute()
-    text = response.data.get(source_field)
+        f"{source_field}, title, author"
+    ).eq("id", book_id).single().execute()
+
+    data = response.data
+    text = data.get(source_field)
+    title = data.get("title", "")
+    author = data.get("author", "")
+    year = data.get("year", "")
 
     if not text:
         print(f"❌ Нет текста в поле {source_field}.")
@@ -325,21 +346,26 @@ def translate_text_structure(
                            for ch in original_structure.chapters)
     translated_count = 0
 
-    system_prompt_translate = (
-        f"Переведи каждое предложение с {source_lang} на {target_lang}. "
-        "Структуру JSON не меняй: добавь поле 'sentence_translation' рядом с 'sentence_original'. "
-        "Не удаляй, не объединяй предложения. Перевод должен быть естественным."
-    )
+    previous_paragraphs: list[str] = []
 
-    for chapter in original_structure.chapters:
+    chapters_to_process = original_structure.chapters
+    if chapter_number is not None and chapter_number != -1:
+        chapters_to_process = [
+            ch for ch in original_structure.chapters if ch.chapter_number == chapter_number
+        ]
+        if not chapters_to_process:
+            print(f"❌ Глава {chapter_number} не найдена.")
+            return
+
+    for chapter in chapters_to_process:
         print(f"\n📚 Глава {chapter.chapter_number}")
         translated_paragraphs = []
 
         for paragraph in chapter.paragraphs:
             print(f"  ✂️ Абзац {paragraph.paragraph_number}")
 
-            raw_sentences = split_into_sentences(
-                paragraph.paragraph_content, source_lang)
+            raw_sentences = split_old_into_sentences(
+                paragraph.paragraph_content, source_lang, spacy_nlp)
             para_struct_original = ChapterParagraphSentenceOriginal(
                 paragraph_number=paragraph.paragraph_number,
                 sentences=[
@@ -351,6 +377,28 @@ def translate_text_structure(
                 ]
             )
             paragraphs_sentences_flat.append(para_struct_original)
+
+            # Формируем system prompt с контекстом
+            context_prefix = (
+                f"Ты переводчик. Работаешь с книгой '{title}' автора {author}.\n"
+                f"Язык оригинала: {source_lang}. Целевой язык: {target_lang}.\n"
+                "Переведи каждое предложение в текущем абзаце.\n"
+                "Перевод должен быть легким и естественным.\n"
+                "Сохрани JSON-структуру, добавив 'sentence_translation' рядом с 'sentence_original'.\n"
+                "Не удаляй и не объединяй предложения.\n"
+            )
+
+            # Добавим до 2 предыдущих абзацев, если их общая длина < 300 символов
+            # максимум 2 последних
+            context_paragraphs = previous_paragraphs[-2:]
+            context_joined = "\n".join(context_paragraphs).strip()
+
+            if context_joined and len(context_joined) <= 300:
+                context_prefix += f"\nПредыдущий текст для контекста (НЕ переводить):\n{context_joined}\n"
+            elif previous_paragraphs:
+                context_prefix += f"\nПредыдущий текст для контекста (НЕ переводить):\n{previous_paragraphs[-1]}\n"
+
+            system_prompt_translate = context_prefix
 
             # Перевод
             attempt = 0
@@ -392,18 +440,55 @@ def translate_text_structure(
                     f"⛔ Не удалось перевести абзац {paragraph.paragraph_number}. Остановка.")
                 return
 
+            previous_paragraphs.append(paragraph.paragraph_content.strip())
+
         chapters_result.append(ChapterItemWithTranslatedSentences(
             chapter_number=chapter.chapter_number,
             paragraphs=translated_paragraphs
         ))
 
-    # Сохраняем финальный результат (SentenceTranslated)
-    print(f"💾 Сохраняем {result_field}...")
+    # Сохраняем финальный результат
+    print(f"\n💾 Сохраняем результат в books_translations для {target_lang}...")
+
     full_structure = ChapterStructureTranslatedSentences(
         chapters=chapters_result)
     json_translated = full_structure.model_dump_json(indent=2)
-    supabase.table("books").update(
-        {result_field: json_translated}).eq("id", book_id).execute()
+
+    # 🌍 Получение локализованного названия и автора
+    try:
+        localized = fetch_localized_title_and_author(
+            title, author, str(year), target_lang)
+        localized_title = localized.localized_title
+        localized_author = localized.localized_author
+        print(f"✅ Название на {target_lang}: {localized_title}")
+        print(f"✅ Автор на {target_lang}: {localized_author}")
+    except Exception as e:
+        print(f"⚠️ Ошибка при получении перевода названия и автора: {e}")
+        localized_title = title
+        localized_author = author
+
+    # Проверяем, есть ли уже запись
+    existing = supabase.table("books_translations").select("id").eq(
+        "book_id", book_id).eq("language", target_lang).execute()
+
+    if existing.data:
+        supabase.table("books_translations").update({
+            result_field: json_translated,
+            "title": localized_title,
+            "author": localized_author
+        }).eq("book_id", book_id).eq("language", target_lang).execute()
+
+        print("🔄 Обновлена существующая запись.")
+    else:
+        supabase.table("books_translations").insert({
+            "book_id": book_id,
+            "language": target_lang,
+            result_field: json_translated,
+            "title": localized_title,
+            "author": localized_author
+        }).execute()
+
+        print("🆕 Добавлена новая запись.")
 
     print("\n✅ Перевод всех абзацев завершён.")
 
