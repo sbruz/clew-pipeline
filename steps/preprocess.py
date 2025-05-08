@@ -1,6 +1,8 @@
 import os
+import re
 import time
 import json
+import spacy
 from typing import Optional
 from openai import OpenAI, OpenAIError, APIConnectionError, RateLimitError, AuthenticationError
 from utils.sentence_splitter import split_into_sentences
@@ -18,6 +20,7 @@ from schemas.translation_schema import (
     ChapterStructureTranslatedSentences,
 )
 from schemas.chapter_schema import ChapterStructure
+from schemas.paragraph_split import ParagraphParts
 
 
 def format_text_with_openai(text, lang="en", max_chars=4000) -> str:
@@ -82,9 +85,8 @@ def split_paragraphs_with_openai(text, lang="en", max_chars=4000) -> str:
     system_prompt = (
         "Ты — помощник по форматированию текста для языкового приложения.\n"
         "Твоя задача — разбить текст на короткие абзацы:\n"
-        "- Делай абзацы до 140 символов.\n"
-        "– Слишком длинные абзацы читать сложно, идеально 15-20 слов.\n"
-        "- Если абзац включает прямую речь, всё равно можешь разбить его. Вставные конструкции с кавычками — не повод избегать разбиения. Просто соблюдай здравый смысл."
+        "- Делай абзацы до 150 символов.\n"
+        "- Если абзац включает прямую речь, всё равно можешь разбить его."
         "- Абзац заканчивается только в конце предложения.\n"
         "- Отделяй каждый абзац двумя переносами строки.\n"
         "- Не меняй и не переформулируй текст.\n"
@@ -146,10 +148,10 @@ def group_into_chapters(book_id: int, lang: str, max_chars: int):
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
-    print(f"📥 Загружаем separated_text для книги {book_id}...")
+    print(f"📥 Загружаем separated_text_verified для книги {book_id}...")
     response = supabase.table("books").select(
-        "separated_text").eq("id", book_id).single().execute()
-    text: Optional[str] = response.data.get("separated_text")
+        "separated_text_verified").eq("id", book_id).single().execute()
+    text: Optional[str] = response.data.get("separated_text_verified")
 
     if not text:
         print("❌ Текст для главы не найден.")
@@ -576,3 +578,135 @@ def split_into_sentences(book_id, lang="en", max_chars=4000):
     supabase.table("books").update(
         {"splitted_text": result}).eq("id", book_id).execute()
     print("✅ Разбиение на предложения завершено и сохранено.")
+
+# РУЧНАЯ РАЗБИВКА ТЕКСТА НА ПАРАГРАФЫ
+
+
+def split_paragraph_manually(paragraph: str, spacy_nlp, max_length: int = 200, min_chunk_len: int = 30) -> list[str]:
+    doc = spacy_nlp(paragraph)
+    sentences = [sent.text.strip() for sent in doc.sents]
+
+    new_paragraphs = []
+    current = ""
+
+    for i, sentence in enumerate(sentences):
+        # Считаем, сколько символов осталось в абзаце, если бы мы НЕ добавили текущее предложение
+        remaining_sentences = sentences[i:]
+        remaining_length = sum(len(s) for s in remaining_sentences)
+
+        # Всегда добавляем, если текущий накопленный текст слишком короткий
+        if len(current) < min_chunk_len:
+            current += (" " if current else "") + sentence
+            continue
+
+        # Не отделяем короткое предложение в хвост
+        if remaining_length < min_chunk_len:
+            current += (" " if current else "") + sentence
+            continue
+
+        # Если можем добавить предложение, не превышая лимит — добавим
+        if len(current) + len(sentence) + 1 <= max_length:
+            current += (" " if current else "") + sentence
+        else:
+            # Заканчиваем текущий абзац
+            if current:
+                new_paragraphs.append(current.strip())
+            current = sentence
+
+    if current:
+        new_paragraphs.append(current.strip())
+
+    return new_paragraphs
+
+
+def verify_separated_text(book_id: int, lang_code: str, nlp):
+    from utils.supabase_client import get_supabase_client
+    supabase = get_supabase_client()
+
+    print(f"📥 Загружаем separated_text для книги {book_id}...")
+    response = supabase.table("books").select(
+        "separated_text").eq("id", book_id).single().execute()
+    text: Optional[str] = response.data.get("separated_text")
+
+    if not text:
+        print("❌ Текст не найден.")
+        return
+
+    end_punctuation = re.compile(r"[.!?…]")
+    paragraphs = [p.strip() for p in text.split("\n") if p.strip()]
+    long_paragraphs = [p for p in paragraphs if len(p) > 200]
+
+    print(
+        f"🔍 Всего абзацев: {len(paragraphs)} | Длинных: {len(long_paragraphs)}")
+
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    verified_paragraphs = []
+    progress_log = []
+
+    for idx, paragraph in enumerate(paragraphs, start=1):
+        if len(paragraph) <= 200:
+            verified_paragraphs.append(paragraph)
+            continue
+
+        status = "failed"
+        if end_punctuation.search(paragraph):
+            try:
+                chunk_count = max(1, round(len(paragraph) / 150))
+                system_prompt = (
+                    f"Ты помощник по делению текста. Язык текста — {lang_code}. "
+                    f"Раздели абзац на примерно равные части по длине, так, чтобы каждая часть заканчивалась полным предложением. "
+                    f"Цель — разбить абзац на {chunk_count} частей. Не изменяй предложения и не добавляй ничего лишнего. "
+                    "Ответ верни строго в JSON: {\"parts\": [\"часть 1\", \"часть 2\", ...]}"
+                )
+
+                completion = client.beta.chat.completions.parse(
+                    model="gpt-4.1",
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": paragraph}
+                    ],
+                    response_format=ParagraphParts
+                )
+
+                parts = completion.choices[0].message.parsed.parts
+                all_good = True
+
+                for part in parts:
+                    if len(part) > 200 and end_punctuation.search(part):
+                        manual_parts = split_paragraph_manually(part, nlp)
+                        verified_paragraphs.extend(manual_parts)
+                        if any(len(p) > 200 for p in manual_parts):
+                            status = "failed"
+                        else:
+                            status = "manual OK"
+                        all_good = False
+                    else:
+                        verified_paragraphs.append(part)
+
+                if all_good:
+                    status = "openai OK"
+
+            except Exception as e:
+                print(f"⚠️ Ошибка GPT: {e}. Пробуем вручную...")
+                manual_parts = split_paragraph_manually(paragraph, nlp)
+                verified_paragraphs.extend(manual_parts)
+                if any(len(p) > 200 for p in manual_parts):
+                    status = "failed"
+                else:
+                    status = "manual OK"
+        else:
+            verified_paragraphs.append(paragraph)
+            status = "failed"
+
+        if len(paragraph) > 200:
+            log_index = len(progress_log) + 1
+            print(
+                f"🧩 Длинный абзац {log_index}/{len(long_paragraphs)} → {status}")
+            progress_log.append((log_index, status))
+
+    final_text = "\n\n".join(verified_paragraphs)
+    supabase.table("books").update(
+        {"separated_text_verified": final_text}
+    ).eq("id", book_id).execute()
+
+    print("📤 Сохранено в separated_text_verified.")

@@ -4,8 +4,32 @@ from utils.elevenlabs_client import get_elevenlabs_voices
 from steps import preprocess, voice, export, goals, tasks
 import yaml
 from dotenv import load_dotenv
+import spacy
+import subprocess
 
 load_dotenv()
+
+
+def ensure_spacy_model(lang_code: str):
+    lang_map = {
+        "en": "en_core_web_sm",
+        "es": "es_core_news_sm",
+        "fr": "fr_core_news_sm",
+        "de": "de_core_news_sm",
+        "it": "it_core_news_sm",
+    }
+    model_name = lang_map.get(lang_code)
+    if not model_name:
+        raise ValueError(f"❌ Неизвестный язык: {lang_code}")
+
+    try:
+        return spacy.load(model_name)
+    except OSError:
+        print(f"📦 Модель {model_name} не найдена. Устанавливаем...")
+        subprocess.run(
+            ["python", "-m", "spacy", "download", model_name], check=True)
+        return spacy.load(model_name)
+
 
 # Загружаем конфиг
 with open("config.yaml", "r", encoding="utf-8") as f:
@@ -51,6 +75,10 @@ for book_id in range(book_id_start, book_id_end + 1):
 
     if steps_enabled.get("paragraph_split"):
         preprocess.split_into_paragraphs(book_id, source_lang, max_chars)
+
+    if steps_enabled.get("paragraph_split_manual"):
+        nlp = ensure_spacy_model(source_lang)
+        preprocess.verify_separated_text(book_id, source_lang, nlp)
 
     if steps_enabled.get("chapter_split"):
         preprocess.group_into_chapters(book_id, source_lang, max_chars)
