@@ -595,8 +595,8 @@ def enrich_sentences_with_words(
                     input_data = [
                         {
                             "sentence_number": s.sentence_number,
-                            "sentence_original": s.sentence_original,
-                            "sentence_translation": s.sentence_translation
+                            "sentence_original": s.sentence_original  # ,
+                            # "sentence_translation": s.sentence_translation
                         }
                         for s in paragraph.sentences
                     ]
