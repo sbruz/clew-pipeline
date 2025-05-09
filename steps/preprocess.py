@@ -502,6 +502,12 @@ def enrich_sentences_with_words(
     max_chars: int,
     paras_number: Optional[int] = None
 ):
+
+    try:
+        paras_number = int(paras_number)
+    except (TypeError, ValueError):
+        paras_number = -1
+
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
@@ -643,7 +649,7 @@ def enrich_sentences_with_words(
                 return
 
         # Выход из цикла, если только глава 1 и первые N абзацев
-        if (paras_number is not None) and (paras_number != -1):
+        if paras_number is not None and paras_number > 0:
             break
 
     print(f"\n💾 Сохраняем {result_field} в books_translations...")

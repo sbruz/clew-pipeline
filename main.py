@@ -8,7 +8,7 @@ with open("config.yaml", "r", encoding="utf-8") as f:
 
 book_id_start = config.get("book_id_start")
 book_id_end = config.get("book_id_end")
-book_ids = list(range(book_id_start, book_id_end + 1))
+book_ids = sorted(range(book_id_start, book_id_end + 1))
 
 num_workers = config.get("options", {}).get("workers", 1)
 
