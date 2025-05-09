@@ -505,6 +505,8 @@ def enrich_sentences_with_words(
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
+    start_time = time.time()
+
     print(
         f"📥 Загружаем {source_field} из books_translations для книги {book_id} и языка {target_lang}...")
 
@@ -650,6 +652,11 @@ def enrich_sentences_with_words(
     ).eq("book_id", book_id).eq("language", target_lang).execute()
 
     print("✅ Разбор слов завершён и сохранён.")
+
+    elapsed = time.time() - start_time
+    minutes = int(elapsed // 60)
+    seconds = int(elapsed % 60)
+    print(f"⏱ Время перевода слов книги: {minutes} мин {seconds} сек")
 
 
 # новый промежуточный шаг после форматирования - разбивка на короткие предложения
