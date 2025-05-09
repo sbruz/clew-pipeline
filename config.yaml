@@ -1,7 +1,7 @@
 book_id_start: 1
 book_id_end: 81
 source_lang: "en"
-target_lang: "ru, es, fr, de, it"
+target_lang: "ru, es"
 
 steps:
   preprocess: false
@@ -10,8 +10,9 @@ steps:
   paragraph_split_manual: false
   chapter_split: false
   simplify_text: false
-  translate_sentences: false                         # 🔠 перевод original текста
-  translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
+  check_preparation: false
+  translate_sentences: true                         # 🔠 перевод original текста
+  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
   translate_words: true                              # 🔠 добавление слов и их перевод
   translate_words_simplified: true                   # 🔠 добавление слов и их перевод к адапированному тексту
   tasks_true_or_false: false
@@ -35,4 +36,4 @@ limits:
 options:
   log_voice: true
   max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит
-  workers: 7
+  workers: 1

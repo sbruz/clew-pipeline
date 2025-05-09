@@ -9,6 +9,7 @@ def process_book_id(book_id: int):
     from utils.supabase_client import check_supabase_connection
     from utils.elevenlabs_client import get_elevenlabs_voices
     from steps import preprocess, voice, export, goals, tasks
+    from utils.check_preparation import check_before_translate
 
     load_dotenv()
 
@@ -85,6 +86,10 @@ def process_book_id(book_id: int):
 
     if steps_enabled.get("simplify_text"):
         preprocess.simplify_text_for_beginners(book_id, source_lang, max_chars)
+
+    if steps_enabled.get("check_preparation"):
+        check_before_translate(book_id)
+        return
 
     for lang in target_langs:
         print(f"🌐 Переводим на язык: {lang}")
