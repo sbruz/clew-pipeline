@@ -541,15 +541,32 @@ def enrich_sentences_with_words(
     readable_source = lang_names.get(source_lang, source_lang)
     readable_target = lang_names.get(target_lang, target_lang)
 
+    # Словари языков
+    lang_names_pr = {
+        "en": "английском",
+        "es": "испанском",
+        "fr": "французском",
+        "de": "немецком",
+        "it": "итальянском",
+        "ru": "русском",
+        "zh": "китайском",
+        "ja": "японском",
+        "ko": "корейском",
+        # добавляй по мере необходимости
+    }
+
+    readable_source_pr = lang_names_pr.get(source_lang, source_lang)
+    readable_target_pr = lang_names_pr.get(target_lang, target_lang)
+
     system_prompt = (
         f"Ты — языковой помощник.\n"
         f"Язык оригинала — {readable_source}. Язык перевода — {readable_target}.\n"
         f"Очисти каждое предложение от знаков препинания и разбей на минимальные по длине смысловые группы, сохраняя вместе фразовые глаголы, идиомы.\n"
         f"Для каждой группы укажи:\n"
-        f"- o: оригинал\n"
-        f"- o_t: перевод\n"
-        f"- l: лемма (если совпадает с o, оставь пустым)\n"
-        f"- l_t: перевод леммы (если l пустое, оставь пустым)\n\n"
+        f"- o: оригинал на {readable_source_pr}\n"
+        f"- o_t: перевод на {readable_target}\n"
+        f"- l: лемма на {readable_source_pr}(если совпадает с o, оставь пустым)\n"
+        f"- l_t: перевод леммы на {readable_target}(если l пустое, оставь пустым)\n\n"
         f"Ответ строго по заданной структуре (response_format)."
     )
 
