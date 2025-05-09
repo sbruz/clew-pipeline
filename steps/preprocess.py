@@ -499,16 +499,20 @@ def enrich_sentences_with_words(
     result_field: str,
     source_lang: str,
     target_lang: str,
-    max_chars: int
+    max_chars: int,
+    paras_number: Optional[int] = None
 ):
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
-    print(f"📥 Загружаем {source_field} для книги {book_id}...")
-    response = supabase.table("books").select(
-        source_field).eq("id", book_id).single().execute()
-    text = response.data.get(source_field)
+    print(
+        f"📥 Загружаем {source_field} из books_translations для книги {book_id} и языка {target_lang}...")
 
+    response = supabase.table("books_translations").select(
+        f"{source_field}"
+    ).eq("book_id", book_id).eq("language", target_lang).single().execute()
+
+    text = response.data.get(source_field)
     if not text:
         print(f"❌ Нет текста в поле {source_field}.")
         return
@@ -520,8 +524,26 @@ def enrich_sentences_with_words(
                           for c in structure.chapters for p in c.paragraphs)
     enriched_count = 0
 
+    # Словари языков
+    lang_names = {
+        "en": "английский",
+        "es": "испанский",
+        "fr": "французский",
+        "de": "немецкий",
+        "it": "итальянский",
+        "ru": "русский",
+        "zh": "китайский",
+        "ja": "японский",
+        "ko": "корейский",
+        # добавляй по мере необходимости
+    }
+
+    readable_source = lang_names.get(source_lang, source_lang)
+    readable_target = lang_names.get(target_lang, target_lang)
+
     system_prompt = (
         f"Ты — языковой помощник.\n"
+        f"Язык оригинала — {readable_source}. Язык перевода — {readable_target}.\n"
         f"Очисти каждое предложение от знаков препинания и разбей на минимальные по длине смысловые группы, сохраняя вместе фразовые глаголы, идиомы.\n"
         f"Для каждой группы укажи:\n"
         f"- o: оригинал\n"
@@ -533,8 +555,15 @@ def enrich_sentences_with_words(
 
     for chapter in structure.chapters:
         print(f"\n📚 Глава {chapter.chapter_number}")
+        translated_paragraphs = chapter.paragraphs
 
-        for paragraph in chapter.paragraphs:
+        # Обработка только первых N абзацев главы 1
+        if (paras_number is not None) and (paras_number != -1):
+            if chapter.chapter_number != 1:
+                continue
+            translated_paragraphs = chapter.paragraphs[:paras_number]
+
+        for paragraph in translated_paragraphs:
             print(
                 f"  ✂️ Абзац {paragraph.paragraph_number} — {len(paragraph.sentences)} предложений")
 
@@ -593,12 +622,18 @@ def enrich_sentences_with_words(
                     f"⛔ Не удалось обработать абзац {paragraph.paragraph_number}. Остановка.")
                 return
 
-    print(f"\n💾 Сохраняем {result_field}...")
+        # Выход из цикла, если только глава 1 и первые N абзацев
+        if (paras_number is not None) and (paras_number != -1):
+            break
+
+    print(f"\n💾 Сохраняем {result_field} в books_translations...")
     json_result = structure.model_dump_json(indent=2)
-    supabase.table("books").update(
-        {result_field: json_result}).eq("id", book_id).execute()
+    supabase.table("books_translations").update(
+        {result_field: json_result}
+    ).eq("book_id", book_id).eq("language", target_lang).execute()
 
     print("✅ Разбор слов завершён и сохранён.")
+
 
 # новый промежуточный шаг после форматирования - разбивка на короткие предложения
 

@@ -10,10 +10,10 @@ steps:
   paragraph_split_manual: false
   chapter_split: false
   simplify_text: false
-  translate_sentences: true                         # 🔠 перевод original текста
-  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
-  translate_words: false
-  translate_words_simplified: false
+  translate_sentences: false                         # 🔠 перевод original текста
+  translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
+  translate_words: true                              # 🔠 добавление слов и их перевод
+  translate_words_simplified: true                   # 🔠 добавление слов и их перевод к адапированному тексту
   tasks_true_or_false: false
   tasks_true_or_false_simplified: false
   tasks_how_to_translate: false

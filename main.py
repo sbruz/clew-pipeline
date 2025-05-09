@@ -122,7 +122,8 @@ for book_id in range(book_id_start, book_id_end + 1):
                 result_field="text_by_chapters_sentence_translation_words",
                 source_lang=source_lang,
                 target_lang=lang,
-                max_chars=max_chars
+                max_chars=max_chars,
+                paras_number=-1    # если -1, то все параграфы
             )
 
         if steps_enabled.get("translate_words_simplified"):
@@ -132,7 +133,8 @@ for book_id in range(book_id_start, book_id_end + 1):
                 result_field="text_by_chapters_simplified_sentence_translation_words",
                 source_lang=lang,
                 target_lang=lang,
-                max_chars=max_chars
+                max_chars=max_chars,
+                paras_number=-1    # если -1, то все параграфы
             )
 
         if steps_enabled.get("tasks_true_or_false"):
