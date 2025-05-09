@@ -1,7 +1,7 @@
 book_id_start: 1
-book_id_end: 1
+book_id_end: 81
 source_lang: "en"
-target_lang: "ru"
+target_lang: "ru, es, fr, de, it"
 
 steps:
   preprocess: false
@@ -35,3 +35,4 @@ limits:
 options:
   log_voice: true
   max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит
+  workers: 5
