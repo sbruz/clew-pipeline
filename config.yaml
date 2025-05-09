@@ -1,7 +1,7 @@
 book_id_start: 1
-book_id_end: 81
+book_id_end: 1
 source_lang: "en"
-target_lang: "ru, es, fr, de, it"
+target_lang: "ru"
 
 steps:
   preprocess: false
