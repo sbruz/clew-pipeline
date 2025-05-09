@@ -98,7 +98,7 @@ def process_book_id(book_id: int):
                 target_lang=lang,
                 max_chars=max_chars,
                 spacy_nlp=nlp,
-                chapter_number=1
+                chapter_number=-1
             )
 
         if steps_enabled.get("translate_sentences_simplified"):
@@ -110,7 +110,7 @@ def process_book_id(book_id: int):
                 target_lang=lang,
                 max_chars=max_chars,
                 spacy_nlp=nlp,
-                chapter_number=1
+                chapter_number=-1
             )
 
         if steps_enabled.get("translate_words"):

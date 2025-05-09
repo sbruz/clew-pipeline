@@ -15,4 +15,4 @@ num_workers = config.get("options", {}).get("workers", 1)
 if __name__ == "__main__":
     print(f"✅ Начинаем обработку {len(book_ids)} книг в {num_workers} потоков")
     with multiprocessing.Pool(processes=num_workers) as pool:
-        pool.map(process_book_id, book_ids)
+        pool.map(process_book_id, book_ids, chunksize=1)
