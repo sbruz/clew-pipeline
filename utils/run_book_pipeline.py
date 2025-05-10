@@ -174,17 +174,19 @@ def process_book_id(book_id: int):
         if steps_enabled.get("tasks_true_or_false"):
             tasks.generate_paragraph_tasks(
                 book_id,
-                "text_by_chapters_sentence_translation_words",
+                "text_by_chapters_sentence_translation",
                 "tasks_true_or_false",
-                lang
+                lang,
+                source_lang
             )
 
         if steps_enabled.get("tasks_true_or_false_simplified"):
             tasks.generate_paragraph_tasks(
                 book_id,
-                "text_by_chapters_simplified_sentence_translation_words",
+                "text_by_chapters_simplified_sentence_translation",
                 "tasks_true_or_false_simplified",
-                lang
+                lang,
+                source_lang
             )
 
         if steps_enabled.get("tasks_how_to_translate"):

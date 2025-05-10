@@ -1,0 +1,117 @@
+📥 Загружаем text_by_chapters_sentence_translation_words и tasks_truefalse_howto для книги 1, язык es...
+
+📘 Глава 1 (книга 1, язык es)
+  ✂️ Абзац 1 — 0%
+    ✅ 1_1_1_11: hijos | 1_1_1_16: hijas → perros
+  ✂️ Абзац 2 — 1%
+    ✅ 1_2_2_5: hermosas | 1_2_3_4: pequeña → rápido
+  ✂️ Абзац 3 — 1%
+📥 Загружаем text_by_chapters_sentence_translation_words и tasks_truefalse_howto для книги 1, язык es...
+
+📘 Глава 1 (книга 1, язык es)
+  ✂️ Абзац 1 — 0%
+    ✅ 1_1_1_11: hijos | 1_1_1_16: hijas → animales
+  ✂️ Абзац 2 — 1%
+    ✅ 1_2_2_2: hijas | 1_2_3_4: pequeña → perros
+  ✂️ Абзац 3 — 1%
+    ✅ 1_3_2_5: celosas | 1_3_3_5: hermosa → inteligente
+  ✂️ Абзац 4 — 2%
+    ✅ 1_4_1_10: ricos | 1_4_2_4: ridículos → pobres
+  ✂️ Абзац 5 — 2%
+    ✅ 1_5_1_6: comerciantes | 1_5_1_7: hijas → médicos
+  ✂️ Абзац 6 — 3%
+    ✅ 1_6_1_5: fiestas | 1_6_1_10: conciertos → museos
+  ✂️ Абзац 7 — 3%
+    ✅ 1_7_1_13: mercaderes | 1_7_1_10: fortunas → iglesia
+  ✂️ Абзац 8 — 4%
+    ✅ 1_8_1_15: Duque | 1_8_1_18: Conde → Zapato
+  ✂️ Абзац 9 — 4%
+    ✅ 1_9_2_10: casarse | 1_9_2_14: quedarse → viajar
+  ✂️ Абзац 10 — 5%
+    ✅ 1_10_1_2: el comerciante | 1_10_1_4: su → la montaña
+  ✂️ Абзац 11 — 5%
+    ✅ 1_11_1_12: ir | 1_11_1_15: trabajar → cantar
+  ✂️ Абзац 12 — 6%
+    ✅ 1_12_1_10: pueblo | 1_12_1_28: fortuna dinero → biblioteca
+  ✂️ Абзац 13 — 6%
+    ✅ 1_13_1_9: despreciaron | 1_13_1_11: abandonaron → aplaudieron
+  ✂️ Абзац 14 — 7%
+    ✅ 1_14_2_5: dar | 1_14_2_12: cuidar → cocinar
+  ✂️ Абзац 15 — 7%
+    ✅ 1_15_1_4: encantadora | 1_15_2_10: afable → gruñón
+  ✂️ Абзац 16 — 8%
+    ✅ 1_16_1_6: ellos | 1_16_1_8: ella → nosotros
+  ✂️ Абзац 17 — 8%
+    ✅ 1_17_1_26: consolar | 1_17_1_28: atender → cocinar
+  ✂️ Абзац 18 — 9%
+    ✅ 1_18_1_2: Belleza | 1_18_1_8: la pérdida → la lámpara
+  ✂️ Абзац 19 — 9%
+    ✅ 1_19_1_3: intentar | 1_19_1_5: hacerme feliz → bailar
+  ✂️ Абзац 20 — 10%
+    ✅ 1_20_1_14: agricultura | 1_20_1_16: cultivo → pesca
+  ✂️ Абзац 21 — 10%
+    ✅ 1_21_1_2: se levantó | 1_21_1_6: se apresuró → bailó
+  ✂️ Абзац 22 — 11%
+    ✅ 1_22_1_4: encontró | 1_22_1_11: trabajar → cantar
+  ✂️ Абзац 23 — 11%
+    ✅ 1_23_1_5: leyó | 1_23_1_6: tocó → dibujó
+  ✂️ Абзац 24 — 12%
+    ✅ 1_24_1_7: nada | 1_24_1_11: todo → algo
+  ✂️ Абзац 25 — 12%
+    ✅ 1_25_1_10: pobre | 1_25_1_11: estúpida → inteligente
+  ✂️ Абзац 26 — 13%
+    ✅ 1_26_3_4: humildad | 1_26_3_5: laboriosidad → generosidad
+  ✂️ Абзац 27 — 13%
+    ✅ 1_27_1_4: dejaron | 1_27_1_12: insultaban → bailaban
+  ✂️ Абзац 28 — 14%
+    ✅ 1_28_1_15: carta | 1_28_1_18: noticia → invitación
+  ✂️ Абзац 29 — 14%
+    ✅ 1_29_1_4: haber vuelto | 1_29_2_6: regresar → viajar
+  ✂️ Абзац 30 — 15%
+    ✅ 1_30_1_14: vestidos | 1_30_1_16: anillos → zapatos
+  ✂️ Абзац 31 — 15%
+    ✅ 1_31_1_11: dinero | 1_31_1_13: padre → bicicleta
+  ✂️ Абзац 32 — 16%
+    ✅ 1_32_2_14: rosa | 1_32_2_23: clase → árbol
+  ✂️ Абзац 33 — 16%
+    ✅ 1_33_1_8: pidió | 1_33_1_15: condenar → comprar
+  ✂️ Абзац 34 — 17%
+    ✅ 1_34_2_16: problemas | 1_34_2_18: esfuerzos → descubrimientos
+  ✂️ Абзац 35 — 17%
+    ✅ 1_35_1_9: casa | 1_35_2_5: bosque → iglesia
+📥 Загружаем text_by_chapters_sentence_translation_words и tasks_truefalse_howto для книги 1, язык es...
+
+📘 Глава 1 (книга 1, язык es)
+  ✂️ Абзац 1 — 0%
+    ✅ 1_1_1_11: hijos | 1_1_1_16: hijas → perros
+  ✂️ Абзац 2 — 1%
+    ✅ 1_2_2_2: hijas | 1_2_3_4: pequeña → perro
+  ✂️ Абзац 3 — 1%
+    ✅ 1_3_3_5: hermosa | 1_3_2_5: celosas → simpática
+  ✂️ Абзац 4 — 2%
+    ✅ 1_4_1_6: orgullo | 1_4_2_5: aires → felicidad
+  ✂️ Абзац 5 — 2%
+    ✅ 1_5_1_6: comerciantes | 1_5_1_7: hijas → perros
+  ✂️ Абзац 6 — 3%
+    ✅ 1_6_1_5: fiestas | 1_6_1_10: conciertos → teatros
+  ✂️ Абзац 7 — 3%
+    ✅ 1_7_1_6: ellos | 1_7_1_18: ellas → ustedes
+  ✂️ Абзац 8 — 4%
+    ✅ 1_8_1_15: Duque | 1_8_1_18: Conde → Rey
+  ✂️ Абзац 9 — 4%
+    ✅ 1_9_2_10: casarse | 1_9_2_14: quedarse → viajar
+  ✂️ Абзац 10 — 5%
+    ✅ 1_10_1_3: perdió | 1_10_1_6: excepto → olvidó
+  ✂️ Абзац 11 — 5%
+    ✅ 1_11_1_12: ir | 1_11_1_15: trabajar → cantar
+  ✂️ Абзац 12 — 6%
+    ✅ 1_12_1_10: pueblo | 1_12_1_28: fortuna dinero → castillo
+  ✂️ Абзац 13 — 6%
+    ✅ 1_13_1_9: despreciaron | 1_13_1_11: abandonaron → ayudaron
+  ✂️ Абзац 14 — 7%
+    ✅ 1_14_2_9: ordeñar | 1_14_2_12: cuidar → cocinar
+  ✂️ Абзац 15 — 7%
+    ✅ 1_15_1_4: encantadora | 1_15_2_10: afable → gruñón
+  ✂️ Абзац 16 — 8%
+    ✅ 1_16_1_6: ellos | 1_16_1_8: ella → usted
+  ✂️ Абзац 17 — 8%

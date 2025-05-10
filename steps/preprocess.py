@@ -542,7 +542,7 @@ def enrich_sentences_with_words(
                           for c in structure.chapters for p in c.paragraphs)
     enriched_count = 0
 
-    # Словари языков
+    # Словари языков в именительном падеже
     lang_names = {
         "en": "английский",
         "es": "испанский",
@@ -559,7 +559,7 @@ def enrich_sentences_with_words(
     readable_source = lang_names.get(source_lang, source_lang)
     readable_target = lang_names.get(target_lang, target_lang)
 
-    # Словари языков
+    # Словари языков в предложном падеже
     lang_names_pr = {
         "en": "английском",
         "es": "испанском",

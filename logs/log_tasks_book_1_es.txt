@@ -1,0 +1,870 @@
+📥 Загружаем text_by_chapters_sentence_translation из books_translations для книги 1 и языка es...
+
+📘 Глава 1 (книга 1, язык es)
+  ✂️ Абзац 1 — 0%
+    🏅 Вопрос: El comerciante tenía seis hijos [true]
+  ✂️ Абзац 2 — 1%
+    🏅 Вопрос: La hija menor era la más admirada [true]
+  ✂️ Абзац 3 — 1%
+    🏅 Вопрос: Las hermanas de Bella sentían celos [true]
+  ✂️ Абзац 4 — 2%
+    🏅 Вопрос: Las hermanas eran muy humildes y pobres [false]
+  ✂️ Абзац 5 — 2%
+    🏅 Вопрос: Ellas tenían muchas amistades humildes [false]
+  ✂️ Абзац 6 — 3%
+    🏅 Вопрос: Se burlaban de su hermana menor [true]
+  ✂️ Абзац 7 — 3%
+    🏅 Вопрос: Nadie quiso casarse con ellos [false]
+  ✂️ Абзац 8 — 4%
+    🏅 Вопрос: Las hermanas querían casarse con granjeros [false]
+  ✂️ Абзац 9 — 4%
+    🏅 Вопрос: Bella quería casarse inmediatamente [false]
+  ✂️ Абзац 10 — 5%
+    🏅 Вопрос: El comerciante se volvió el hombre más rico [false]
+  ✂️ Абзац 11 — 5%
+    🏅 Вопрос: La madre habló con sus hijos [true]
+  ✂️ Абзац 12 — 6%
+    🏅 Вопрос: Las hermanas no quisieron dejar la ciudad [true]
+  ✂️ Абзац 13 — 6%
+    🏅 Вопрос: Los pretendientes abandonaron a las orgullosas [true]
+  ✂️ Абзац 14 — 7%
+    🏅 Вопрос: Están preocupados por Bella [true]
+  ✂️ Абзац 15 — 7%
+    🏅 Вопрос: La criatura era amable y servicial [true]
+  ✂️ Абзац 16 — 8%
+    🏅 Вопрос: Varios caballeros querían casarse con ella [true]
+  ✂️ Абзац 17 — 8%
+    🏅 Вопрос: Ella decide acompañar a su padre [true]
+  ✂️ Абзац 18 — 9%
+    🏅 Вопрос: Bella estaba contenta con su fortuna [false]
+  ✂️ Абзац 19 — 9%
+    🏅 Вопрос: Quiere ser feliz sin riqueza [true]
+  ✂️ Абзац 20 — 10%
+    🏅 Вопрос: Trabajaron en la agricultura juntos [true]
+  ✂️ Абзац 21 — 10%
+    🏅 Вопрос: Bella dormía hasta el mediodía diario [false]
+  ✂️ Абзац 22 — 11%
+    🏅 Вопрос: Nunca se acostumbró al trabajo duro [false]
+  ✂️ Абзац 23 — 11%
+    🏅 Вопрос: Ambas hermanas disfrutaban tocando el clavecín [false]
+  ✂️ Абзац 24 — 12%
+    🏅 Вопрос: Se lamentan por sus pérdidas materiales [true]
+  ✂️ Абзац 25 — 12%
+    🏅 Вопрос: Desprecian a su hermana menor [true]
+  ✂️ Абзац 26 — 13%
+    🏅 Вопрос: Bella era más inteligente que sus hermanas [true]
+  ✂️ Абзац 27 — 13%
+    🏅 Вопрос: Las hermanas la trataban mal constantemente [true]
+  ✂️ Абзац 28 — 14%
+    🏅 Вопрос: La familia vivió allí solo una semana [false]
+  ✂️ Абзац 29 — 14%
+    🏅 Вопрос: Las hijas mayores querían volver a la ciudad [true]
+  ✂️ Абзац 30 — 15%
+    🏅 Вопрос: Ellos pidieron a su padre comprar comida [false]
+  ✂️ Абзац 31 — 15%
+    🏅 Вопрос: Bella pidió un vestido nuevo [false]
+  ✂️ Абзац 32 — 16%
+    🏅 Вопрос: Bella pide una rosa a su padre [true]
+  ✂️ Абзац 33 — 16%
+    🏅 Вопрос: Bella pidió la rosa por cortesía [true]
+  ✂️ Абзац 34 — 17%
+    🏅 Вопрос: Regresó tan pobre como antes [true]
+  ✂️ Абзац 35 — 17%
+    🏅 Вопрос: Nunca pensó en sus hijos durante el viaje [false]
+  ✂️ Абзац 36 — 18%
+    🏅 Вопрос: El clima era soleado y tranquilo [false]
+  ✂️ Абзац 37 — 18%
+    🏅 Вопрос: El protagonista no sentía ningún miedo [false]
+  ✂️ Абзац 38 — 19%
+    🏅 Вопрос: Ve una luz proveniente de un palacio [true]
+
+📘 Глава 2 (книга 1, язык es)
+  ✂️ Абзац 1 — 19%
+    🏅 Вопрос: El comerciante encuentra muchos guardias afuera [false]
+  ✂️ Абзац 2 — 20%
+    🏅 Вопрос: El caballo estaba hambriento [true]
+  ✂️ Абзац 3 — 20%
+    🏅 Вопрос: No había nadie en la casa [true]
+  ✂️ Абзац 4 — 20%
+    🏅 Вопрос: Había tres cubiertos en la mesa [false]
+  ✂️ Абзац 5 — 21%
+    🏅 Вопрос: Se acercó al fuego para secarse [true]
+  ✂️ Абзац 6 — 21%
+    🏅 Вопрос: El hombre está esperando al dueño [true]
+  ✂️ Абзац 7 — 22%
+    🏅 Вопрос: Nadie llegó a la cita a las once [true]
+  ✂️ Абзац 8 — 22%
+    🏅 Вопрос: Comió un pollo por hambre [true]
+  ✂️ Абзац 9 — 23%
+    🏅 Вопрос: Él nunca bebió vino en la historia [false]
+  ✂️ Абзац 10 — 23%
+    🏅 Вопрос: Atravesó salones con muebles lujosos [true]
+  ✂️ Абзац 11 — 24%
+    🏅 Вопрос: Decide salir a caminar por el bosque [false]
+  ✂️ Абзац 12 — 24%
+    🏅 Вопрос: El comerciante encontró un traje nuevo [true]
+  ✂️ Абзац 13 — 25%
+    🏅 Вопрос: El palacio pertenece a un dragón feroz [false]
+  ✂️ Абзац 14 — 25%
+    🏅 Вопрос: Él no vio nieve por la ventana [true]
+  ✂️ Абзац 15 — 26%
+    🏅 Вопрос: Había chocolate preparado en el salón [true]
+  ✂️ Абзац 16 — 26%
+    🏅 Вопрос: Él agradece a la Hada por su ayuda [true]
+  ✂️ Абзац 17 — 27%
+    🏅 Вопрос: El hombre ignoró completamente las rosas [false]
+  ✂️ Абзац 18 — 27%
+    🏅 Вопрос: Aparece una bestia aterradora [true]
+  ✂️ Абзац 19 — 28%
+    🏅 Вопрос: La Bestia habló con voz terrible [true]
+  ✂️ Абзац 20 — 28%
+    🏅 Вопрос: Las rosas son muy valiosas para él [true]
+  ✂️ Абзац 21 — 29%
+    🏅 Вопрос: Le dan quince minutos para prepararse [true]
+  ✂️ Абзац 22 — 29%
+    🏅 Вопрос: El comerciante pide perdón de rodillas [true]
+  ✂️ Абзац 23 — 30%
+    🏅 Вопрос: El personaje tomó una rosa para su hija [true]
+  ✂️ Абзац 24 — 30%
+    🏅 Вопрос: La Bestia prefiere la sinceridad [true]
+  ✂️ Абзац 25 — 31%
+    🏅 Вопрос: No le afectan las palabras lisonjeras [true]
+  ✂️ Абзац 26 — 31%
+    🏅 Вопрос: Debe venir una de sus hijas [true]
+  ✂️ Абзац 27 — 32%
+    🏅 Вопрос: Debe regresar en tres meses si falla [true]
+  ✂️ Абзац 28 — 32%
+    🏅 Вопрос: El comerciante quería ver a sus hijas [true]
+  ✂️ Абзац 29 — 33%
+    🏅 Вопрос: Ella prometió regresar bajo juramento [true]
+  ✂️ Абзац 30 — 33%
+    🏅 Вопрос: Ella debe regresar a la habitación [true]
+  ✂️ Абзац 31 — 34%
+    🏅 Вопрос: La Bestia promete enviar la caja [true]
+  ✂️ Абзац 32 — 34%
+    🏅 Вопрос: Piensa en el futuro de sus hijos [true]
+  ✂️ Абзац 33 — 35%
+    🏅 Вопрос: No encontró ninguna moneda de oro allí [false]
+  ✂️ Абзац 34 — 35%
+    🏅 Вопрос: Salió del palacio muy triste [true]
+  ✂️ Абзац 35 — 36%
+    🏅 Вопрос: El caballo eligió el camino solo [true]
+
+📘 Глава 3 (книга 1, язык es)
+  ✂️ Абзац 1 — 36%
+    🏅 Вопрос: Él empezó a llorar delante de sus hijos [true]
+  ✂️ Абзац 2 — 37%
+    🏅 Вопрос: El padre de Bella ofreció rosas [true]
+  ✂️ Абзац 3 — 37%
+    🏅 Вопрос: Bella lloró más que sus hermanas [false]
+  ✂️ Абзац 4 — 38%
+    🏅 Вопрос: La señorita quería llamar la atención [true]
+  ✂️ Абзац 5 — 38%
+    🏅 Вопрос: Ella no muestra ninguna emoción visible [true]
+  ✂️ Абзац 6 — 39%
+    🏅 Вопрос: Bella piensa que su padre no sufrirá [true]
+  ✂️ Абзац 7 — 39%
+    🏅 Вопрос: El monstruo acepta a todas las hijas [false]
+  ✂️ Абзац 8 — 40%
+    🏅 Вопрос: Los hermanos deciden enfrentar al monstruo [true]
+  ✂️ Абзац 9 — 40%
+    🏅 Вопрос: La Bestia es muy débil y frágil [false]
+  ✂️ Абзац 10 — 40%
+    🏅 Вопрос: El personaje acepta la oferta de Bella [false]
+  ✂️ Абзац 11 — 41%
+    🏅 Вопрос: El narrador es un niño joven [false]
+  ✂️ Абзац 12 — 41%
+    🏅 Вопрос: Bella insiste en acompañar a su padre [true]
+  ✂️ Абзац 13 — 42%
+    🏅 Вопрос: Bella quería ir al palacio [true]
+  ✂️ Абзац 14 — 42%
+    🏅 Вопрос: El comerciante estaba muy preocupado por su hija [true]
+  ✂️ Абзац 15 — 43%
+    🏅 Вопрос: Nadie apareció en la habitación esa noche [false]
+  ✂️ Абзац 16 — 43%
+    🏅 Вопрос: Él no contó a sus hijos su riqueza [true]
+  ✂️ Абзац 17 — 44%
+    🏅 Вопрос: Bella pidió una dote para sus hermanas [true]
+  ✂️ Абзац 18 — 44%
+    🏅 Вопрос: Las hermanas fingieron llorar con cebolla [true]
+  ✂️ Абзац 19 — 45%
+    🏅 Вопрос: Solo Bella no lloró al despedirse [true]
+  ✂️ Абзац 20 — 45%
+    🏅 Вопрос: El caballo fue hacia el palacio [true]
+  ✂️ Абзац 21 — 46%
+    🏅 Вопрос: El hombre encontró al caballo en el salón [false]
+  ✂️ Абзац 22 — 46%
+    🏅 Вопрос: Bella se negó a sentarse a la mesa [false]
+  ✂️ Абзац 23 — 47%
+    🏅 Вопрос: La Bestia quiere hacerle un regalo [false]
+  ✂️ Абзац 24 — 47%
+    🏅 Вопрос: El comerciante pensó que la Bestia venía [true]
+  ✂️ Абзац 25 — 48%
+    🏅 Вопрос: Bella respondió temblando al monstruo [true]
+  ✂️ Абзац 26 — 48%
+    🏅 Вопрос: Bella invitó a la Bestia a quedarse [false]
+  ✂️ Абзац 27 — 49%
+    🏅 Вопрос: El monstruo se quedó con ellos [false]
+  ✂️ Абзац 28 — 49%
+    🏅 Вопрос: Bella quiere quedarse y no irse [true]
+  ✂️ Абзац 29 — 50%
+    🏅 Вопрос: Se durmieron rápidamente al acostarse [true]
+  ✂️ Абзац 30 — 50%
+    🏅 Вопрос: Bella sueña con una dama elegante [true]
+  ✂️ Абзац 31 — 51%
+    🏅 Вопрос: Bella contó su sueño a su padre [true]
+
+📘 Глава 4 (книга 1, язык es)
+  ✂️ Абзац 1 — 51%
+    🏅 Вопрос: Bella empezó a llorar tras su partida [true]
+  ✂️ Абзац 2 — 52%
+    🏅 Вопрос: Se entregó completamente a la desesperación [false]
+  ✂️ Абзац 3 — 52%
+    🏅 Вопрос: La Bestia ya se la había comido [false]
+  ✂️ Абзац 4 — 53%
+    🏅 Вопрос: Bella tiene un apartamento señalado [true]
+  ✂️ Абзац 5 — 53%
+    🏅 Вопрос: Ella se sorprendió al abrir la puerta [true]
+  ✂️ Абзац 6 — 54%
+    🏅 Вопрос: Ella vio una gran biblioteca [true]
+  ✂️ Абзац 7 — 54%
+    🏅 Вопрос: El protagonista está completamente solo [false]
+  ✂️ Абзац 8 — 55%
+    🏅 Вопрос: Él se sintió desesperado y sin esperanza [false]
+  ✂️ Абзац 9 — 55%
+    🏅 Вопрос: El libro estaba escrito con tinta roja [false]
+  ✂️ Абзац 10 — 56%
+    🏅 Вопрос: Desobedecen las instrucciones inmediatamente [false]
+  ✂️ Абзац 11 — 56%
+    🏅 Вопрос: Ella no quiere ver a su padre [false]
+  ✂️ Абзац 12 — 57%
+    🏅 Вопрос: El padre está sonriendo en el espejo [false]
+  ✂️ Абзац 13 — 57%
+    🏅 Вопрос: Las hermanas estaban muy tristes al verlo [false]
+  ✂️ Абзац 14 — 58%
+    🏅 Вопрос: Bella sintió preocupación por la Bestia [true]
+  ✂️ Абзац 15 — 58%
+    🏅 Вопрос: No vio a los músicos durante el concierto [true]
+  ✂️ Абзац 16 — 59%
+    🏅 Вопрос: La Bestia asusta a la protagonista [true]
+  ✂️ Абзац 17 — 59%
+    🏅 Вопрос: El monstruo quiere ver a Bella cenar [true]
+  ✂️ Абзац 18 — 60%
+    🏅 Вопрос: La Bestia pregunta si es fea [true]
+  ✂️ Абзац 19 — 60%
+    🏅 Вопрос: Bella cree que la Bestia es bondadosa [true]
+  ✂️ Абзац 20 — 60%
+    🏅 Вопрос: Estoy orgullosa de mi inteligencia [false]
+  ✂️ Абзац 21 — 61%
+    🏅 Вопрос: Bella piensa que esto es señal de necedad [false]
+  ✂️ Абзац 22 — 61%
+    🏅 Вопрос: La Bestia quiere que Bella sea feliz [true]
+  ✂️ Абзац 23 — 62%
+    🏅 Вопрос: Bella no aprecia la amabilidad [false]
+  ✂️ Абзац 24 — 62%
+    🏅 Вопрос: La Bestia admite ser un monstruo [true]
+  ✂️ Абзац 25 — 63%
+    🏅 Вопрос: Bella prefiere a los hombres traicioneros [false]
+  ✂️ Абзац 26 — 63%
+    🏅 Вопрос: La Bestia insulta a su invitado aquí [false]
+  ✂️ Абзац 27 — 64%
+    🏅 Вопрос: Bella casi se desmaya por la propuesta [true]
+  ✂️ Абзац 28 — 64%
+    🏅 Вопрос: Ella rechazó la propuesta de la Bestia [true]
+  ✂️ Абзац 29 — 65%
+    🏅 Вопрос: El monstruo suspira y silba fuertemente [true]
+  ✂️ Абзац 30 — 65%
+    🏅 Вопрос: La Bestia sale de la habitación [true]
+  ✂️ Абзац 31 — 66%
+    🏅 Вопрос: Nunca la miró al salir [false]
+  ✂️ Абзац 32 — 66%
+    🏅 Вопрос: Bella siente compasión por la Bestia [true]
+
+📘 Глава 5 (книга 1, язык es)
+  ✂️ Абзац 1 — 67%
+    🏅 Вопрос: Bella fue feliz en el palacio [true]
+  ✂️ Абзац 2 — 67%
+    🏅 Вопрос: La Bestia cenaba con ella cada noche [true]
+  ✂️ Абзац 3 — 68%
+    🏅 Вопрос: Bella nota buenas cualidades en el monstruo [true]
+  ✂️ Абзац 4 — 68%
+    🏅 Вопрос: Ella ya no le temía [true]
+  ✂️ Абзац 5 — 69%
+    🏅 Вопрос: La Bestia llegaba siempre a esa hora [true]
+  ✂️ Абзац 6 — 69%
+    🏅 Вопрос: El monstruo propone matrimonio cada noche [true]
+  ✂️ Абзац 7 — 70%
+    🏅 Вопрос: Ella rechaza casarse con la Bestia [true]
+  ✂️ Абзац 8 — 70%
+    🏅 Вопрос: Nunca te consideraré un amigo [false]
+  ✂️ Абзац 9 — 71%
+    🏅 Вопрос: La Bestia no ama a la protagonista [false]
+  ✂️ Абзац 10 — 71%
+    🏅 Вопрос: El padre de Bella estaba muy feliz [false]
+  ✂️ Абзац 11 — 72%
+    🏅 Вопрос: Ella quiere ver a su padre [true]
+  ✂️ Абзац 12 — 72%
+    🏅 Вопрос: La Bestia prefiere morir antes de molestar [true]
+  ✂️ Абзац 13 — 73%
+    🏅 Вопрос: Bella promete regresar en una semana [true]
+  ✂️ Абзац 14 — 73%
+    🏅 Вопрос: Mis hermanas no están casadas [false]
+  ✂️ Абзац 15 — 74%
+    🏅 Вопрос: La Bestia le habla a Bella [true]
+  ✂️ Абзац 16 — 74%
+    🏅 Вопрос: Bella despertó en la casa de su padre [true]
+  ✂️ Абзац 17 — 75%
+    🏅 Вопрос: La criada gritó al ver al personaje [true]
+  ✂️ Абзац 18 — 75%
+    🏅 Вопрос: El hombre se alegra al ver a su hija [true]
+  ✂️ Абзац 19 — 76%
+    🏅 Вопрос: Bella teme no tener ropa disponible [true]
+  ✂️ Абзац 20 — 76%
+    🏅 Вопрос: La sirvienta encontró un baúl con vestidos [true]
+  ✂️ Абзац 21 — 77%
+    🏅 Вопрос: Bella tomó todos los regalos para sí misma [false]
+  ✂️ Абзац 22 — 77%
+    🏅 Вопрос: El baúl desapareció y reapareció [true]
+  ✂️ Абзац 23 — 78%
+    🏅 Вопрос: Las hermanas eran muy felices y solteras [false]
+  ✂️ Абзац 24 — 78%
+    🏅 Вопрос: El esposo era muy egocéntrico [true]
+  ✂️ Абзац 25 — 79%
+    🏅 Вопрос: El esposo siempre era muy amable [false]
+  ✂️ Абзац 26 — 79%
+    🏅 Вопрос: Las hermanas sentían envidia de Bella [true]
+  ✂️ Абзац 27 — 80%
+    🏅 Вопрос: Él sentía celos intensos por ella [true]
+  ✂️ Абзац 28 — 80%
+    🏅 Вопрос: Bajaron al jardín para llorar juntas [true]
+  ✂️ Абзац 29 — 80%
+    🏅 Вопрос: La hermana menor tuvo la idea [false]
+  ✂️ Абзац 30 — 81%
+    🏅 Вопрос: Quieren retener a la persona más tiempo [true]
+  ✂️ Абзац 31 — 81%
+    🏅 Вопрос: Debaten sobre cómo tratar a alguien [true]
+
+📘 Глава 6 (книга 1, язык es)
+  ✂️ Абзац 1 — 82%
+    🏅 Вопрос: Bella lloró porque estaba enojada [false]
+  ✂️ Абзац 2 — 82%
+    🏅 Вопрос: Bella promete quedarse una semana más [true]
+  ✂️ Абзац 3 — 83%
+    🏅 Вопрос: Bella extraña sinceramente a la Bestia [true]
+  ✂️ Абзац 4 — 83%
+    🏅 Вопрос: Bella sueña que la Bestia está muriendo [true]
+  ✂️ Абзац 5 — 84%
+    🏅 Вопрос: Bella se siente culpable con Bestia [true]
+  ✂️ Абзац 6 — 84%
+    🏅 Вопрос: Es amable y bueno [true]
+  ✂️ Абзац 7 — 85%
+    🏅 Вопрос: Ella acepta casarse con el monstruo [false]
+  ✂️ Абзац 8 — 85%
+    🏅 Вопрос: La inteligencia es clave para la felicidad [false]
+  ✂️ Абзац 9 — 86%
+    🏅 Вопрос: La Bestia es despreciada por la narradora [false]
+  ✂️ Абзац 10 — 86%
+    🏅 Вопрос: Promete no causar infelicidad [true]
+  ✂️ Абзац 11 — 87%
+    🏅 Вопрос: Bella puso el anillo sobre la mesa [true]
+  ✂️ Абзац 12 — 87%
+    🏅 Вопрос: Ella se despertó en el palacio [true]
+  ✂️ Абзац 13 — 88%
+    🏅 Вопрос: La Bestia no llegó a la cita [true]
+  ✂️ Абзац 14 — 88%
+    🏅 Вопрос: Bella pensó que causó la muerte [true]
+  ✂️ Абзац 15 — 89%
+    🏅 Вопрос: Encontró el objeto en su habitación [false]
+  ✂️ Абзац 16 — 89%
+    🏅 Вопрос: La Bestia estaba muy animada [false]
+  ✂️ Абзац 17 — 90%
+    🏅 Вопрос: Ella huyó al ver a la persona [false]
+  ✂️ Абзац 18 — 90%
+    🏅 Вопрос: La Bestia quería dejarse morir [true]
+  ✂️ Абзац 19 — 91%
+    🏅 Вопрос: El personaje ve a alguien por última vez [true]
+  ✂️ Абзац 20 — 91%
+    🏅 Вопрос: Bella acepta casarse con Bestia [true]
+  ✂️ Абзац 21 — 92%
+    🏅 Вопрос: El personaje se siente indiferente [false]
+
+📘 Глава 7 (книга 1, язык es)
+  ✂️ Абзац 1 — 92%
+    🏅 Вопрос: El palacio se encontraba completamente oscuro [false]
+  ✂️ Абзац 2 — 93%
+    🏅 Вопрос: Bestia se transformó en un dragón [false]
+  ✂️ Абзац 3 — 93%
+    🏅 Вопрос: La Bestia sigue siendo un monstruo [false]
+  ✂️ Абзац 4 — 94%
+    🏅 Вопрос: Ella preguntó por la Bestia [true]
+  ✂️ Абзац 5 — 94%
+    🏅 Вопрос: El Príncipe está bajo un hechizo [true]
+  ✂️ Абзац 6 — 95%
+    🏅 Вопрос: La hada pidió ocultar la inteligencia [true]
+  ✂️ Абзац 7 — 95%
+    🏅 Вопрос: Bella acepta la ayuda del Príncipe [true]
+  ✂️ Абзац 8 — 96%
+    🏅 Вопрос: Bella encontró a su familia en el castillo [true]
+  ✂️ Абзац 9 — 96%
+    🏅 Вопрос: La dama felicita a Bella por elegir [true]
+  ✂️ Абзац 10 — 97%
+    🏅 Вопрос: Se valora la virtud sobre la belleza [true]
+  ✂️ Абзац 11 — 97%
+    🏅 Вопрос: Hablan del futuro reinado de alguien [true]
+  ✂️ Абзац 12 — 98%
+    🏅 Вопрос: El Hada castiga a las hermanas [true]
+  ✂️ Абзац 13 — 98%
+    🏅 Вопрос: Ellos verán la felicidad de su hermana [true]
+  ✂️ Абзац 14 — 99%
+    🏅 Вопрос: Las estatuas pueden moverse libremente [false]
+  ✂️ Абзац 15 — 99%
+    🏅 Вопрос: La pereza es imposible de superar [false]
+  ✂️ Абзац 16 — 100%
+    🏅 Вопрос: Todos fueron transportados al palacio [true]
+  ✂️ Абзац 17 — 100%
+    🏅 Вопрос: Se casó con Bella [true]
+
+💾 Сохраняем результат в tasks_true_or_false для книги 1 и языка es...
+✅ Вопросы по абзацам сохранены в tasks_true_or_false.
+⏱ Время генерации вопросов: 3 мин 11 сек (книга 1, язык es, поле tasks_true_or_false)
+📥 Загружаем text_by_chapters_simplified_sentence_translation из books_translations для книги 1 и языка es...
+
+📘 Глава 1 (книга 1, язык es)
+  ✂️ Абзац 1 — 0%
+    🏅 Вопрос: El comerciante tenía cuatro hijas [false]
+  ✂️ Абзац 2 — 1%
+    🏅 Вопрос: Las hijas eran muy feas [false]
+  ✂️ Абзац 3 — 1%
+    🏅 Вопрос: Las hermanas de Bella sentían celos [true]
+  ✂️ Абзац 4 — 2%
+    🏅 Вопрос: Las hermanas eran humildes y generosas [false]
+  ✂️ Абзац 5 — 2%
+    🏅 Вопрос: Eran amigas de todas las hijas [false]
+  ✂️ Абзац 6 — 3%
+    🏅 Вопрос: A Bella le gusta leer libros [true]
+  ✂️ Абзац 7 — 3%
+    🏅 Вопрос: Muchos comerciantes querían casarse con ellas [true]
+  ✂️ Абзац 8 — 4%
+    🏅 Вопрос: Las chicas solo querían casarse con campesinos [false]
+  ✂️ Абзац 9 — 4%
+    🏅 Вопрос: Bella aceptó casarse inmediatamente [false]
+  ✂️ Абзац 10 — 5%
+    🏅 Вопрос: El comerciante se hizo muy rico [false]
+  ✂️ Абзац 11 — 5%
+    🏅 Вопрос: Todos estaban muy felices con la noticia [false]
+  ✂️ Абзац 12 — 6%
+    🏅 Вопрос: Las hermanas querían mudarse al campo [false]
+  ✂️ Абзац 13 — 6%
+    🏅 Вопрос: Las hermanas eran humildes y queridas [false]
+  ✂️ Абзац 14 — 7%
+    🏅 Вопрос: Bella está muy feliz con la situación [false]
+  ✂️ Абзац 15 — 7%
+    🏅 Вопрос: Bella era antipática con todos [false]
+  ✂️ Абзац 16 — 8%
+    🏅 Вопрос: Bella no tenía dinero [true]
+  ✂️ Абзац 17 — 8%
+    🏅 Вопрос: Bella quiere acompañar a su padre [true]
+  ✂️ Абзац 18 — 9%
+    🏅 Вопрос: Bella ganó mucho dinero al principio [false]
+  ✂️ Абзац 19 — 9%
+    🏅 Вопрос: El dinero garantiza la felicidad absoluta [false]
+  ✂️ Абзац 20 — 10%
+    🏅 Вопрос: La familia trabajó en el campo [true]
+  ✂️ Абзац 21 — 10%
+    🏅 Вопрос: Bella preparó el desayuno temprano [true]
+  ✂️ Абзац 22 — 11%
+    🏅 Вопрос: Ella enfermó gravemente en dos meses [false]
+  ✂️ Абзац 23 — 11%
+    🏅 Вопрос: Las hermanas de Bella tocaban instrumentos [false]
+  ✂️ Абзац 24 — 12%
+    🏅 Вопрос: Las hermanas trabajaban todo el día [false]
+  ✂️ Абзац 25 — 12%
+    🏅 Вопрос: Sus hermanas la consideraban tonta [true]
+  ✂️ Абзац 26 — 13%
+    🏅 Вопрос: Su padre prefería a sus otras hijas [false]
+  ✂️ Абзац 27 — 13%
+    🏅 Вопрос: Las hermanas trataban mal a Bella [true]
+  ✂️ Абзац 28 — 14%
+    🏅 Вопрос: El comerciante recibió una carta importante [true]
+  ✂️ Абзац 29 — 14%
+    🏅 Вопрос: Las hermanas quieren regresar a la ciudad [true]
+  ✂️ Абзац 30 — 15%
+    🏅 Вопрос: Pidieron regalos a su padre [true]
+  ✂️ Абзац 31 — 15%
+    🏅 Вопрос: Bella pensó en la economía familiar [true]
+  ✂️ Абзац 32 — 16%
+    🏅 Вопрос: Bella pide una rosa a su padre [true]
+  ✂️ Абзац 33 — 16%
+    🏅 Вопрос: Bella pidió una rosa por modestia [true]
+  ✂️ Абзац 34 — 17%
+    🏅 Вопрос: El padre regresó sin dinero [true]
+  ✂️ Абзац 35 — 17%
+    🏅 Вопрос: Él estaba muy cerca de su casa [false]
+  ✂️ Абзац 36 — 18%
+    🏅 Вопрос: El viento era extremadamente fuerte [true]
+  ✂️ Абзац 37 — 18%
+    🏅 Вопрос: Tiene miedo por el frío y los lobos [true]
+  ✂️ Абзац 38 — 19%
+    🏅 Вопрос: Hay un palacio iluminado entre los árboles [true]
+
+📘 Глава 2 (книга 1, язык es)
+  ✂️ Абзац 1 — 19%
+    🏅 Вопрос: El comerciante no vio a nadie afuera [true]
+  ✂️ Абзац 2 — 20%
+    🏅 Вопрос: El caballo se negó a comer heno [false]
+  ✂️ Абзац 3 — 20%
+    🏅 Вопрос: El comerciante voló sobre el caballo [false]
+  ✂️ Абзац 4 — 20%
+    🏅 Вопрос: En la mesa había un solo plato [true]
+  ✂️ Абзац 5 — 21%
+    🏅 Вопрос: El mercader estaba empapado por el clima [true]
+  ✂️ Абзац 6 — 21%
+    🏅 Вопрос: Él decide esperar en el lugar [true]
+  ✂️ Абзац 7 — 22%
+    🏅 Вопрос: Llegaron todos antes de las once [false]
+  ✂️ Абзац 8 — 22%
+    🏅 Вопрос: Comió un pollo rápidamente [true]
+  ✂️ Абзац 9 — 23%
+    🏅 Вопрос: Bebió vino después de comer [true]
+  ✂️ Абзац 10 — 23%
+    🏅 Вопрос: Encontró una habitación con una cama bonita [true]
+  ✂️ Абзац 11 — 24%
+    🏅 Вопрос: Se fue a correr al parque [false]
+  ✂️ Абзац 12 — 24%
+    🏅 Вопрос: El comerciante se despertó a medianoche [false]
+  ✂️ Абзац 13 — 25%
+    🏅 Вопрос: Él supone que el palacio es mágico [true]
+  ✂️ Абзац 14 — 25%
+    🏅 Вопрос: La ventana estaba cubierta de nieve [false]
+  ✂️ Абзац 15 — 26%
+    🏅 Вопрос: Había chocolate sobre la mesa [true]
+  ✂️ Абзац 16 — 26%
+    🏅 Вопрос: Pinocchio desprecia la ayuda del Hada [false]
+  ✂️ Абзац 17 — 27%
+    🏅 Вопрос: El comerciante cortó unas rosas [true]
+  ✂️ Абзац 18 — 27%
+    🏅 Вопрос: Sintió miedo al ver la bestia [true]
+  ✂️ Абзац 19 — 28%
+    🏅 Вопрос: La Bestia habla con voz aterradora [true]
+  ✂️ Абзац 20 — 28%
+    🏅 Вопрос: Las rosas son importantes para él [true]
+  ✂️ Абзац 21 — 29%
+    🏅 Вопрос: La Bestia amenaza con matar a alguien [true]
+  ✂️ Абзац 22 — 29%
+    🏅 Вопрос: El mercader empezó a bailar y reír [false]
+  ✂️ Абзац 23 — 30%
+    🏅 Вопрос: Él tomó una rosa para su hija [true]
+  ✂️ Абзац 24 — 30%
+    🏅 Вопрос: La Bestia ama las palabras elegantes [false]
+  ✂️ Абзац 25 — 31%
+    🏅 Вопрос: Él rechaza las palabras amables [true]
+  ✂️ Абзац 26 — 31%
+    🏅 Вопрос: Él ofrece libertad bajo una condición [true]
+  ✂️ Абзац 27 — 32%
+    🏅 Вопрос: La Bestia puso una condición al padre [true]
+  ✂️ Абзац 28 — 32%
+    🏅 Вопрос: El comerciante abandonó a sus hijas voluntariamente [false]
+  ✂️ Абзац 29 — 33%
+    🏅 Вопрос: La Bestia permite que ella se vaya [true]
+  ✂️ Абзац 30 — 33%
+    🏅 Вопрос: La Bestia ofrece un baúl vacío [true]
+  ✂️ Абзац 31 — 34%
+    🏅 Вопрос: La Bestia se quedó en la casa [false]
+  ✂️ Абзац 32 — 34%
+    🏅 Вопрос: El comerciante pensó en sus hijos [true]
+  ✂️ Абзац 33 — 35%
+    🏅 Вопрос: Él llenó el baúl de oro [true]
+  ✂️ Абзац 34 — 35%
+    🏅 Вопрос: El personaje está muy contento ahora [false]
+  ✂️ Абзац 35 — 36%
+    🏅 Вопрос: El comerciante se perdió en el bosque [false]
+
+📘 Глава 3 (книга 1, язык es)
+  ✂️ Абзац 1 — 36%
+    🏅 Вопрос: Él comenzó a llorar frente a ellos [true]
+  ✂️ Абзац 2 — 37%
+    🏅 Вопрос: Él le dio un libro a Bella [false]
+  ✂️ Абзац 3 — 37%
+    🏅 Вопрос: Bella comenzó a llorar desconsoladamente [false]
+  ✂️ Абзац 4 — 38%
+    🏅 Вопрос: Ella no pidió ropa bonita [true]
+  ✂️ Абзац 5 — 38%
+    🏅 Вопрос: Su padre va a casarse pronto [false]
+  ✂️ Абзац 6 — 39%
+    🏅 Вопрос: Bella decide no llorar [true]
+  ✂️ Абзац 7 — 39%
+    🏅 Вопрос: Una hija decide sacrificarse [true]
+  ✂️ Абзац 8 — 40%
+    🏅 Вопрос: Los hermanos deciden no hacer nada [false]
+  ✂️ Абзац 9 — 40%
+    🏅 Вопрос: El padre cree que no pueden vencer [true]
+  ✂️ Абзац 10 — 40%
+    🏅 Вопрос: El comerciante no quiere que Bella se vaya [true]
+  ✂️ Абзац 11 — 41%
+    🏅 Вопрос: El hablante es una persona mayor [true]
+  ✂️ Абзац 12 — 41%
+    🏅 Вопрос: Bella se niega a acompañar a su padre [false]
+  ✂️ Абзац 13 — 42%
+    🏅 Вопрос: Bella estaba decidida a ir [true]
+  ✂️ Абзац 14 — 42%
+    🏅 Вопрос: El comerciante estaba lleno de alegría [false]
+  ✂️ Абзац 15 — 43%
+    🏅 Вопрос: Él vio el cofre en su cuarto [true]
+  ✂️ Абзац 16 — 43%
+    🏅 Вопрос: Los hijos ya saben del dinero [false]
+  ✂️ Абзац 17 — 44%
+    🏅 Вопрос: Bella robó dinero a su padre [false]
+  ✂️ Абзац 18 — 44%
+    🏅 Вопрос: Bella odiaba profundamente a sus hermanas [false]
+  ✂️ Абзац 19 — 45%
+    🏅 Вопрос: Bella no lloró al despedirse [true]
+  ✂️ Абзац 20 — 45%
+    🏅 Вопрос: El palacio volvió a brillar con luces [true]
+  ✂️ Абзац 21 — 46%
+    🏅 Вопрос: La mesa estaba completamente vacía [false]
+  ✂️ Абзац 22 — 46%
+    🏅 Вопрос: Bella se negó a comer con él [false]
+  ✂️ Абзац 23 — 47%
+    🏅 Вопрос: Bella no tiene miedo de la Bestia [false]
+  ✂️ Абзац 24 — 47%
+    🏅 Вопрос: El comerciante empezó a llorar [true]
+  ✂️ Абзац 25 — 48%
+    🏅 Вопрос: Bella tenía miedo de la Bestia [true]
+  ✂️ Абзац 26 — 48%
+    🏅 Вопрос: La Bestia pide a Bella que se vaya [true]
+  ✂️ Абзац 27 — 49%
+    🏅 Вопрос: La Bestia nunca se fue del lugar [false]
+  ✂️ Абзац 28 — 49%
+    🏅 Вопрос: Bella decide quedarse sola [true]
+  ✂️ Абзац 29 — 50%
+    🏅 Вопрос: Pronto se quedaron dormidos profundamente [true]
+  ✂️ Абзац 30 — 50%
+    🏅 Вопрос: Bella soñó con un dragón gigante [false]
+  ✂️ Абзац 31 — 51%
+    🏅 Вопрос: Bella habló con su padre del sueño [true]
+
+📘 Глава 4 (книга 1, язык es)
+  ✂️ Абзац 1 — 51%
+    🏅 Вопрос: Bella empezó a llorar sola [true]
+  ✂️ Абзац 2 — 52%
+    🏅 Вопрос: Bella decidió ser valiente y fuerte [true]
+  ✂️ Абзац 3 — 52%
+    🏅 Вопрос: Bella admira la belleza del castillo [true]
+  ✂️ Абзац 4 — 53%
+    🏅 Вопрос: Bella no encontró ninguna puerta especial [false]
+  ✂️ Абзац 5 — 53%
+    🏅 Вопрос: Ella lloró al ver la habitación [false]
+  ✂️ Абзац 6 — 54%
+    🏅 Вопрос: No había ni un solo libro allí [false]
+  ✂️ Абзац 7 — 54%
+    🏅 Вопрос: No tiene nada para divertirse aquí [false]
+  ✂️ Абзац 8 — 55%
+    🏅 Вопрос: La idea le dio esperanza [true]
+  ✂️ Абзац 9 — 55%
+    🏅 Вопрос: Bella encontró una corona de oro [false]
+  ✂️ Абзац 10 — 56%
+    🏅 Вопрос: Se habla de cumplir deseos [true]
+  ✂️ Абзац 11 — 56%
+    🏅 Вопрос: Bella quiere ir al cine [false]
+  ✂️ Абзац 12 — 57%
+    🏅 Вопрос: Ella vio a su padre en el espejo [true]
+  ✂️ Абзац 13 — 57%
+    🏅 Вопрос: Las hermanas fingieron estar tristes [true]
+  ✂️ Абзац 14 — 58%
+    🏅 Вопрос: Bella aprecia más a la Bestia [true]
+  ✂️ Абзац 15 — 58%
+    🏅 Вопрос: Bella escuchó música sin ver músicos [true]
+  ✂️ Абзац 16 — 59%
+    🏅 Вопрос: Bella estaba feliz de ver a la Bestia [false]
+  ✂️ Абзац 17 — 59%
+    🏅 Вопрос: La voz de Bella temblaba [true]
+  ✂️ Абзац 18 — 60%
+    🏅 Вопрос: La Bestia pregunta sobre su apariencia [true]
+  ✂️ Абзац 19 — 60%
+    🏅 Вопрос: La Bestia se considera fea [true]
+  ✂️ Абзац 20 — 60%
+    🏅 Вопрос: La Bestia piensa que no es inteligente [true]
+  ✂️ Абзац 21 — 61%
+    🏅 Вопрос: Bella llamó a alguien arrogante [false]
+  ✂️ Абзац 22 — 61%
+    🏅 Вопрос: Bella rechaza quedarse en el palacio [false]
+  ✂️ Абзац 23 — 62%
+    🏅 Вопрос: Bella dice que Bestia es su enemigo [false]
+  ✂️ Абзац 24 — 62%
+    🏅 Вопрос: La Bestia dice que es humana [false]
+  ✂️ Абзац 25 — 63%
+    🏅 Вопрос: Bella dice que nadie parece amable [false]
+  ✂️ Абзац 26 — 63%
+    🏅 Вопрос: La Bestia recitó un poema complicado [false]
+  ✂️ Абзац 27 — 64%
+    🏅 Вопрос: La Bestia le pidió dinero a Bella [false]
+  ✂️ Абзац 28 — 64%
+    🏅 Вопрос: Bella tenía miedo de la reacción [true]
+  ✂️ Абзац 29 — 65%
+    🏅 Вопрос: El monstruo suspiró fuertemente [true]
+  ✂️ Абзац 30 — 65%
+    🏅 Вопрос: La Bestia se puso a bailar feliz [false]
+  ✂️ Абзац 31 — 66%
+    🏅 Вопрос: Observó a Bella al marcharse [true]
+  ✂️ Абзац 32 — 66%
+    🏅 Вопрос: Bella siente lástima por la Bestia [true]
+
+📘 Глава 5 (книга 1, язык es)
+  ✂️ Абзац 1 — 67%
+    🏅 Вопрос: Bella estaba feliz en el palacio [true]
+  ✂️ Абзац 2 — 67%
+    🏅 Вопрос: La Bestia cenaba con ella cada noche [true]
+  ✂️ Абзац 3 — 68%
+    🏅 Вопрос: Bella descubre cosas buenas sobre la Bestia [true]
+  ✂️ Абзац 4 — 68%
+    🏅 Вопрос: Ella evitaba ver a la Bestia [false]
+  ✂️ Абзац 5 — 69%
+    🏅 Вопрос: La Bestia llegaba a diferentes horas [false]
+  ✂️ Абзац 6 — 69%
+    🏅 Вопрос: Bella nunca pensaba en la Bestia [false]
+  ✂️ Абзац 7 — 70%
+    🏅 Вопрос: Bella rechaza la declaración de Bestia [true]
+  ✂️ Абзац 8 — 70%
+    🏅 Вопрос: El personaje ofrece su amistad [true]
+  ✂️ Абзац 9 — 71%
+    🏅 Вопрос: La Bestia odia profundamente a la persona [false]
+  ✂️ Абзац 10 — 71%
+    🏅 Вопрос: Bella quería ver a su padre [true]
+  ✂️ Абзац 11 — 72%
+    🏅 Вопрос: Ella extraña a su padre [true]
+  ✂️ Абзац 12 — 72%
+    🏅 Вопрос: La Bestia está dispuesta a dejarla ir [true]
+  ✂️ Абзац 13 — 73%
+    🏅 Вопрос: Bella promete regresar en una semana [true]
+  ✂️ Абзац 14 — 73%
+    🏅 Вопрос: Las hermanas del hablante están casadas [true]
+  ✂️ Абзац 15 — 74%
+    🏅 Вопрос: La Bestia le recuerda su promesa a Bella [true]
+  ✂️ Абзац 16 — 74%
+    🏅 Вопрос: La Bestia nunca suspira en la historia [false]
+  ✂️ Абзац 17 — 75%
+    🏅 Вопрос: La sirvienta gritó al ver a Bella [true]
+  ✂️ Абзац 18 — 75%
+    🏅 Вопрос: El padre de Bella estaba feliz [true]
+  ✂️ Абзац 19 — 76%
+    🏅 Вопрос: Bella no tenía ropa para vestirse [true]
+  ✂️ Абзац 20 — 76%
+    🏅 Вопрос: El baúl estaba vacío y polvoriento [false]
+  ✂️ Абзац 21 — 77%
+    🏅 Вопрос: Bella eligió un vestido sencillo [true]
+  ✂️ Абзац 22 — 77%
+    🏅 Вопрос: El baúl reapareció con los vestidos [true]
+  ✂️ Абзац 23 — 78%
+    🏅 Вопрос: Las hermanas estaban muy infelices [true]
+  ✂️ Абзац 24 — 78%
+    🏅 Вопрос: El marido era egoísta con su esposa [true]
+  ✂️ Абзац 25 — 79%
+    🏅 Вопрос: El esposo hacía sentir mal a su esposa [true]
+  ✂️ Абзац 26 — 79%
+    🏅 Вопрос: Las hermanas tenían celos de Bella [true]
+  ✂️ Абзац 27 — 80%
+    🏅 Вопрос: Bella odiaba profundamente a sus hermanas [false]
+  ✂️ Абзац 28 — 80%
+    🏅 Вопрос: Las hermanas celebraron la felicidad de Bella [false]
+  ✂️ Абзац 29 — 80%
+    🏅 Вопрос: La hermana mayor tiene una idea nueva [true]
+  ✂️ Абзац 30 — 81%
+    🏅 Вопрос: El monstruo cumplió su promesa felizmente [false]
+  ✂️ Абзац 31 — 81%
+    🏅 Вопрос: Las hermanas planean ser amables con ella [true]
+
+📘 Глава 6 (книга 1, язык es)
+  ✂️ Абзац 1 — 82%
+    🏅 Вопрос: Bella estaba emocionada hasta las lágrimas [true]
+  ✂️ Абзац 2 — 82%
+    🏅 Вопрос: Las hermanas de Bella lloraron al despedirse [true]
+  ✂️ Абзац 3 — 83%
+    🏅 Вопрос: Bella extraña a la Bestia [true]
+  ✂️ Абзац 4 — 83%
+    🏅 Вопрос: Bella paseó alegremente con la Bestia [false]
+  ✂️ Абзац 5 — 84%
+    🏅 Вопрос: Bella reía junto a la Bestia felizmente [false]
+  ✂️ Абзац 6 — 84%
+    🏅 Вопрос: Ella piensa que él es amable [true]
+  ✂️ Абзац 7 — 85%
+    🏅 Вопрос: Bella duda rechazar a Bestia [true]
+  ✂️ Абзац 8 — 85%
+    🏅 Вопрос: Ella cree que la belleza es lo más importante [false]
+  ✂️ Абзац 9 — 86%
+    🏅 Вопрос: Bestia es profundamente odiado por ella [false]
+  ✂️ Абзац 10 — 86%
+    🏅 Вопрос: Promete no causar tristeza [true]
+  ✂️ Абзац 11 — 87%
+    🏅 Вопрос: Bella deja su anillo en la mesa [true]
+  ✂️ Абзац 12 — 87%
+    🏅 Вопрос: Despertó feliz en el palacio [true]
+  ✂️ Абзац 13 — 88%
+    🏅 Вопрос: La Bestia no llegó a las nueve [true]
+  ✂️ Абзац 14 — 88%
+    🏅 Вопрос: Bella pensó que la Bestia murió [true]
+  ✂️ Абзац 15 — 89%
+    🏅 Вопрос: Ella encontró a la Bestia en la cocina [false]
+  ✂️ Абзац 16 — 89%
+    🏅 Вопрос: La Bestia estaba bailando con ella [false]
+  ✂️ Абзац 17 — 90%
+    🏅 Вопрос: Bella tenía miedo de acercarse a él [false]
+  ✂️ Абзац 18 — 90%
+    🏅 Вопрос: La Bestia estaba muy triste [true]
+  ✂️ Абзац 19 — 91%
+    🏅 Вопрос: Él está feliz de verlo de nuevo [true]
+  ✂️ Абзац 20 — 91%
+    🏅 Вопрос: Bella acepta casarse con Bestia [true]
+  ✂️ Абзац 21 — 92%
+    🏅 Вопрос: El hablante está triste por amor [true]
+
+📘 Глава 7 (книга 1, язык es)
+  ✂️ Абзац 1 — 92%
+    🏅 Вопрос: El palacio se llenó de luces [true]
+  ✂️ Абзац 2 — 93%
+    🏅 Вопрос: Bella se alegró por la Bestia [false]
+  ✂️ Абзац 3 — 93%
+    🏅 Вопрос: La Bestia se transformó en príncipe [true]
+  ✂️ Абзац 4 — 94%
+    🏅 Вопрос: Bella extrañaba a la Bestia [true]
+  ✂️ Абзац 5 — 94%
+    🏅 Вопрос: El Príncipe era la Bestia [true]
+  ✂️ Абзац 6 — 95%
+    🏅 Вопрос: La hada le pidió ocultar su inteligencia [true]
+  ✂️ Абзац 7 — 95%
+    🏅 Вопрос: Bella rechazó la corona del Príncipe [false]
+  ✂️ Абзац 8 — 96%
+    🏅 Вопрос: Bella llegó al castillo sola [false]
+  ✂️ Абзац 9 — 96%
+    🏅 Вопрос: La dama castigó a Bella por su elección [false]
+  ✂️ Абзац 10 — 97%
+    🏅 Вопрос: Bella eligió la inteligencia sobre la bondad [false]
+  ✂️ Абзац 11 — 97%
+    🏅 Вопрос: Ella habló sobre el futuro de Bella [true]
+  ✂️ Абзац 12 — 98%
+    🏅 Вопрос: El Hada castigó a las hermanas [true]
+  ✂️ Абзац 13 — 98%
+    🏅 Вопрос: Ellos perderán completamente la memoria [false]
+  ✂️ Абзац 14 — 99%
+    🏅 Вопрос: Las personas fueron convertidas en estatuas [true]
+  ✂️ Абзац 15 — 99%
+    🏅 Вопрос: El hada curó la mente fácilmente [false]
+  ✂️ Абзац 16 — 100%
+    🏅 Вопрос: El hada no usó su varita mágica [false]
+  ✂️ Абзац 17 — 100%
+    🏅 Вопрос: El Príncipe se casó con Bella [true]
+
+💾 Сохраняем результат в tasks_true_or_false_simplified для книги 1 и языка es...
+✅ Вопросы по абзацам сохранены в tasks_true_or_false_simplified.
+⏱ Время генерации вопросов: 3 мин 18 сек (книга 1, язык es, поле tasks_true_or_false_simplified)
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false уже заполнено для книги 1, языка es
+⏭ Пропускаем: поле tasks_true_or_false_simplified уже заполнено для книги 1, языка es
