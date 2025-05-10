@@ -437,7 +437,7 @@ def translate_text_structure(
 
             if not success:
                 print(
-                    f"⛔ Не удалось перевести абзац {paragraph.paragraph_number}. Остановка.")
+                    f"⛔ Не удалось обработать абзац: книга-{book_id} глава-{chapter.chapter_number} абзац-{paragraph.paragraph_number} язык-{target_lang} источник-{source_field}. Остановка.")
                 return
 
             previous_paragraphs.append(paragraph.paragraph_content.strip())
@@ -511,6 +511,16 @@ def enrich_sentences_with_words(
     from utils.supabase_client import get_supabase_client
     supabase = get_supabase_client()
 
+    # Пропускаем, если результат уже есть
+    result_check = supabase.table("books_translations").select(result_field).eq(
+        "book_id", book_id).eq("language", target_lang).single().execute()
+    raw_result = result_check.data.get(result_field)
+
+    if raw_result and str(raw_result).strip() not in {"", "{}", "[]"}:
+        print(
+            f"⏭ Пропускаем: поле {result_field} уже заполнено для книги {book_id}, языка {target_lang}")
+        return
+
     start_time = time.time()
 
     print(
@@ -569,14 +579,14 @@ def enrich_sentences_with_words(
     system_prompt = (
         f"Ты — языковой помощник.\n"
         f"Язык оригинала — {readable_source}. Язык перевода — {readable_target}.\n"
-        f"Очисти каждое предложение от знаков препинания и разбей на минимальные по длине смысловые и грамматические группы, сохраняя вместе фразовые глаголы, идиомы, неделимые выражения.\n"
+        f"Очисти каждый текст в 'sentence_original' от знаков препинания и разбей на минимальные по длине смысловые и грамматические группы, сохраняя вместе фразовые глаголы, идиомы, неделимые выражения.\n"
         "Не объединяй слова в одну группу, если их можно разделить без изменения смысла и неверного толкования по отдельности.\n"
         f"Для каждой группы укажи:\n"
         f"- 'o': оригинал на {readable_source_pr};\n"
         f"- 'o_t': дословный перевод на {readable_target}, а для артиклей, частиц, вспомогательных и служебных слов - их роль в предложении;\n"
         f"- 'l': лемма на {readable_source_pr} (если отличается от `o`; если нет — оставь `""`);\n"
         f"- 'l_t': перевод леммы на {readable_target} (если отличается от `o_t`; если нет — оставь `""`).\n"
-        f"Ответ строго по заданной структуре (response_format)."
+        f"Ответ строго по заданной структуре (response_format), где 'SentenceWordList' соответствует 'sentence_original'."
     )
 
     for chapter in structure.chapters:
@@ -613,7 +623,7 @@ def enrich_sentences_with_words(
                         messages=[
                             {"role": "system", "content": system_prompt},
                             {"role": "user", "content": json.dumps(
-                                input_data, ensure_ascii=False, indent=2)[:max_chars]}
+                                input_data, ensure_ascii=False, indent=2)}
                         ],
                         response_format=ParagraphWordAnalysis,
                     )
@@ -645,7 +655,7 @@ def enrich_sentences_with_words(
 
             if not success:
                 print(
-                    f"⛔ Не удалось обработать абзац {paragraph.paragraph_number}. Остановка.")
+                    f"⛔ Не удалось обработать абзац: книга-{book_id} глава-{chapter.chapter_number} абзац-{paragraph.paragraph_number} язык-{target_lang} источник-{source_field}. Остановка.")
                 return
 
         # Выход из цикла, если только глава 1 и первые N абзацев

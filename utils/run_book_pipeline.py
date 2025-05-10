@@ -91,6 +91,37 @@ def process_book_id(book_id: int):
         check_before_translate(book_id)
         return
 
+    if steps_enabled.get("voice_narration"):
+        # voices = get_elevenlabs_voices(source_lang)
+        # voice_plan = voice.get_voice_plan_for_book(title, author, voices)
+        voice.generate_audio_for_chapters(
+            book_id=book_id,
+            is_simplified=False,
+            text_field="text_by_chapters",
+            # voice_plan=voice_plan,
+            output_dir=f"voice_book_{book_id}",
+            # voices_list=voices,
+            log_voice=config.get("options", {}).get("log_voice", False),
+            max_paragraphs=max_paragraphs
+        )
+        if not steps_enabled.get("voice_narration_simplified"):
+            return
+
+    if steps_enabled.get("voice_narration_simplified"):
+        # voices = get_elevenlabs_voices(source_lang)
+        # voice_plan = voice.get_voice_plan_for_book(title, author, voices)
+        voice.generate_audio_for_chapters(
+            book_id=book_id,
+            is_simplified=True,
+            text_field="text_by_chapters_simplified",
+            # voice_plan=voice_plan,
+            output_dir=f"voice_book_{book_id}",
+            # voices_list=voices,
+            log_voice=config.get("options", {}).get("log_voice", False),
+            max_paragraphs=max_paragraphs
+        )
+        return
+
     for lang in target_langs:
         print(f"🌐 Переводим на язык: {lang}")
 
@@ -197,34 +228,6 @@ def process_book_id(book_id: int):
         if steps_enabled.get("export"):
             export.export_book_json(
                 book_id, source_lang=source_lang, target_lang=lang)
-
-    if steps_enabled.get("voice_narration"):
-        voices = get_elevenlabs_voices(source_lang)
-        voice_plan = voice.get_voice_plan_for_book(title, author, voices)
-        voice.generate_audio_for_chapters(
-            book_id=book_id,
-            is_simplified=False,
-            text_field="text_by_chapters",
-            voice_plan=voice_plan,
-            output_dir=f"voice_book_{book_id}",
-            voices_list=voices,
-            log_voice=config.get("options", {}).get("log_voice", False),
-            max_paragraphs=max_paragraphs
-        )
-
-    if steps_enabled.get("voice_narration_simplified"):
-        voices = get_elevenlabs_voices(source_lang)
-        voice_plan = voice.get_voice_plan_for_book(title, author, voices)
-        voice.generate_audio_for_chapters(
-            book_id=book_id,
-            is_simplified=True,
-            text_field="text_by_chapters_simplified",
-            voice_plan=voice_plan,
-            output_dir=f"voice_book_{book_id}",
-            voices_list=voices,
-            log_voice=config.get("options", {}).get("log_voice", False),
-            max_paragraphs=max_paragraphs
-        )
 
     print(
         f"🔧 [PID {pid}] [{proc_name}] ✅ Обработка книги ID {book_id} завершена")
