@@ -36,4 +36,4 @@ limits:
 options:
   log_voice: false
   max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит
-  workers: 7
+  workers: 8

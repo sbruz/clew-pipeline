@@ -81,13 +81,13 @@ def generate_audio_for_chapters(
                 return
 
             counter += 1
-            filename_base = f"book_{book_id}_{chapter.chapter_number}_{paragraph.paragraph_number}"
-            if is_simplified:
-                filename_base += "_s"
 
-            full_path_mp3 = export_path / f"{filename_base}.mp3"
-            full_path_json = export_path / f"{filename_base}_time.json"
-            full_path_txt = export_path / f"{filename_base}.txt"
+            filename_base = f"book_{book_id}_{chapter.chapter_number}_{paragraph.paragraph_number}"
+            suffix = "_s" if is_simplified else ""
+
+            full_path_mp3 = export_path / f"{filename_base}{suffix}.mp3"
+            full_path_json = export_path / f"{filename_base}_time{suffix}.json"
+            full_path_txt = export_path / f"{filename_base}{suffix}.txt"
 
             text_to_speak = paragraph.paragraph_content
 
