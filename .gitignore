@@ -21,6 +21,7 @@ voice_book_*/
 export*/
 backups/
 ready_books/
+logs/
 
 # OS
 .DS_Store

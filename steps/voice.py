@@ -55,12 +55,12 @@ def generate_audio_for_chapters(
 
     structure = ChapterStructure.model_validate_json(text)
     api_key = os.getenv("ELEVENLABS_API_KEY")
-    Path(f"export_book_{book_id}").mkdir(exist_ok=True)
-    output_path = Path(f"export_book_{book_id}") / f"voice_book_{book_id}"
-    output_path.mkdir(exist_ok=True)
+
+    export_path = Path("export/voices")
+    export_path.mkdir(parents=True, exist_ok=True)
 
     if log_voice:
-        with open(output_path / "voice_meta.json", "w", encoding="utf-8") as f:
+        with open(export_path / f"book_{book_id}_voice_meta.json", "w", encoding="utf-8") as f:
             json.dump(voice_data, f, ensure_ascii=False, indent=2)
         print(f"📝 Выбран голос: {voice_name} ({voice_id})")
 
@@ -81,13 +81,13 @@ def generate_audio_for_chapters(
                 return
 
             counter += 1
-            filename_base = f"{chapter.chapter_number}_{paragraph.paragraph_number}"
+            filename_base = f"book_{book_id}_{chapter.chapter_number}_{paragraph.paragraph_number}"
             if is_simplified:
                 filename_base += "_s"
 
-            full_path_mp3 = output_path / f"{filename_base}.mp3"
-            full_path_json = output_path / f"{filename_base}_time.json"
-            full_path_txt = output_path / f"{filename_base}.txt"
+            full_path_mp3 = export_path / f"{filename_base}.mp3"
+            full_path_json = export_path / f"{filename_base}_time.json"
+            full_path_txt = export_path / f"{filename_base}.txt"
 
             text_to_speak = paragraph.paragraph_content
 
