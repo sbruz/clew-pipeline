@@ -227,9 +227,5 @@ def process_book_id(book_id: int):
                 target_lang=lang
             )
 
-        if steps_enabled.get("export"):
-            export.export_book_json(
-                book_id, source_lang=source_lang, target_lang=lang)
-
     print(
         f"🔧 [PID {pid}] [{proc_name}] ✅ Обработка книги ID {book_id} завершена")
