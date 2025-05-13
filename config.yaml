@@ -21,10 +21,10 @@ steps:
   tasks_how_to_translate_simplified: false
   tasks_two_words: false
   tasks_two_words_simplified: false
-  export: false
+  export: true
 
-  voice_narration: true
-  voice_narration_simplified: true
+  voice_narration: false
+  voice_narration_simplified: false
 
   # chapters_goals: false
   # chapters_goals_simplified: false
@@ -36,4 +36,4 @@ limits:
 options:
   log_voice: false
   max_voiced_paragraphs: 10                           # сколько абзацев озвучить: -1 безлимит
-  workers: 10
+  workers: 1

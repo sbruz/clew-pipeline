@@ -67,21 +67,27 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
             print(f"⏭ Пропуск ID {book_id} — книги нет в таблице books.")
             continue
 
-        meta_response = supabase.table("books_full_view").select(
-            "year, words, genre, set"
-        ).eq("id", book_id).single().execute()
-
-        if not meta_response.data:
-            print(f"⚠️ Пропуск ID {book_id} — нет данных в books_full_view.")
-            continue
-
-        meta = meta_response.data
-        year = meta.get("year", "")
-        words = meta.get("words", "")
-        genre = meta.get("genre", "")
-        book_set = meta.get("set", "")
+        # meta_response = supabase.table("books_full_view").select(
+        #    "year, words, genre, set"
+        # ).eq("id", book_id).single().execute()
 
         for target_lang in target_langs:
+
+            meta_response = supabase.table("book_export_view").select(
+                "year, words, genre, set"
+            ).eq("book_id", book_id).eq("language", target_lang).maybe_single().execute()
+
+            if not meta_response.data:
+                print(
+                    f"⚠️ Пропуск ID {book_id} — нет данных в book_export_view.")
+                continue
+
+            meta = meta_response.data
+            year = meta.get("year", "")
+            words = meta.get("words", "")
+            genre = meta.get("genre", "")
+            book_set = meta.get("set", "")
+
             trans_response = supabase.table("books_translations").select(
                 "title, author, "
                 "text_by_chapters_sentence_translation_words, "
@@ -183,7 +189,8 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "genre": genre,
                 "set": book_set,
                 "source_lang": source_lang,
-                "target_lang": target_lang
+                "target_lang": target_lang,
+                "chapters": len(original_text["chapters"])
             })
 
     # Сохраняем общий список книг выше папки content
