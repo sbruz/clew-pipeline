@@ -60,11 +60,11 @@ def generate_paragraph_tasks(book_id: int, source_field: str, result_field: str,
         "es": "испанском",
         "fr": "французском",
         "de": "немецком",
-        "it": "итальянском",
         "ru": "русском",
-        "zh": "китайском",
-        "ja": "японском",
-        "ko": "корейском",
+        "it": "итальянском",
+        "pt": "португальском",
+        "tr": "турецком",
+        "ja": "японском"
     }
     readable_target_pr = lang_names_pr.get(target_lang, target_lang)
 
@@ -367,11 +367,11 @@ def add_two_words_tasks(book_id: int, words_field: str, base_task_field: str, re
         "es": "испанском",
         "fr": "французском",
         "de": "немецком",
-        "it": "итальянском",
         "ru": "русском",
-        "zh": "китайском",
-        "ja": "японском",
-        "ko": "корейском",
+        "it": "итальянском",
+        "pt": "португальском",
+        "tr": "турецком",
+        "ja": "японском"
     }
     readable_target_pr = lang_names_pr.get(target_lang, target_lang)
 
