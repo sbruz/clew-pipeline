@@ -17,7 +17,7 @@ def fetch_localized_title_and_author(title: str, author: str, year: str, target_
         "de": "немецком",
         "it": "итальянском",
         "ru": "русском",
-        "pt": "португальском",
+        "pt": "португальском (бразильском)",
         "tr": "турецком",
         "ja": "японском"
 

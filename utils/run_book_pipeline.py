@@ -8,7 +8,7 @@ def process_book_id(book_id: int):
     from utils.supabase_client import load_book_text, save_formatted_text, get_supabase_client
     from utils.supabase_client import check_supabase_connection
     from utils.elevenlabs_client import get_elevenlabs_voices
-    from steps import preprocess, voice, export, goals, tasks
+    from steps import preprocess, voice, export, goals, tasks, mems
     from utils.check_preparation import check_before_translate
 
     load_dotenv()
@@ -89,6 +89,10 @@ def process_book_id(book_id: int):
 
     if steps_enabled.get("check_preparation"):
         check_before_translate(book_id)
+        return
+
+    if steps_enabled.get("generate_mems"):
+        mems.generate_memes_for_book(book_id, source_lang)
         return
 
     if steps_enabled.get("voice_narration"):

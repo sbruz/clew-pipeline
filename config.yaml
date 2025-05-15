@@ -1,7 +1,7 @@
 book_id_start: 1
 book_id_end: 81
 source_lang: "en"
-target_lang: "ja"
+target_lang: "pt"
 
 steps:
   preprocess: false
@@ -11,6 +11,7 @@ steps:
   chapter_split: false
   simplify_text: false
   check_preparation: false
+  generate_mems: false
   translate_sentences: true                         # 🔠 перевод original текста
   translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
   translate_words: true                              # 🔠 добавление слов и их перевод

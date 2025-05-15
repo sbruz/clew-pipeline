@@ -62,7 +62,7 @@ def generate_paragraph_tasks(book_id: int, source_field: str, result_field: str,
         "de": "немецком",
         "ru": "русском",
         "it": "итальянском",
-        "pt": "португальском",
+        "pt": "португальском (бразильском)",
         "tr": "турецком",
         "ja": "японском"
     }
@@ -369,7 +369,7 @@ def add_two_words_tasks(book_id: int, words_field: str, base_task_field: str, re
         "de": "немецком",
         "ru": "русском",
         "it": "итальянском",
-        "pt": "португальском",
+        "pt": "португальском (бразильском)",
         "tr": "турецком",
         "ja": "японском"
     }
