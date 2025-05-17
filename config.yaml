@@ -1,10 +1,10 @@
 book_id_start: 1
-book_id_end: 10
+book_id_end: 81
 source_lang: "en"
 target_lang: "de"
 
 steps:
-  preprocess: falsegit
+  preprocess: false
   sentence_split: false
   paragraph_split: false
   paragraph_split_manual: false
