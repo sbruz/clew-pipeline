@@ -184,6 +184,9 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                     json.dump(chapter_data, f, ensure_ascii=False, indent=2)
                 print(f"✅ Сохранена глава: {chapter_path.name}")
 
+            paragraphs_total = sum(len(ch["paragraphs"])
+                                   for ch in original_text["chapters"])
+
             books_info.append({
                 "id": f"book_{book_id}",
                 "title": localized_title,
@@ -194,7 +197,8 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "set": book_set,
                 "source_lang": source_lang,
                 "target_lang": target_lang,
-                "chapters": len(original_text["chapters"])
+                "chapters": len(original_text["chapters"]),
+                "paragraphs": paragraphs_total
             })
 
     # Сохраняем общий список книг выше папки content

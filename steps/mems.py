@@ -23,7 +23,7 @@ def generate_memes_for_book(book_id: int, source_lang: str = "en"):
     chapters = json.loads(data["text_by_chapters"])["chapters"]
 
     total_chapters = len(chapters)
-    output_dir = Path(f"export/mems/book_{book_id}")
+    output_dir = Path(f"export/pictures/book_{book_id}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     lang_names_pr = {
@@ -41,19 +41,33 @@ def generate_memes_for_book(book_id: int, source_lang: str = "en"):
 
     for i, chapter in enumerate(chapters):
         chapter_number = chapter["chapter_number"]
+        if chapter_number != 2:
+            continue
         paragraphs = chapter["paragraphs"]
         print(f"\n📘 Глава {chapter_number} ({i+1}/{total_chapters})")
 
         chapter_text = "\n".join(
             [f"[{idx+1}] {p}" for idx, p in enumerate(paragraphs)])
 
-        system_prompt = (
+        system_prompt_mem = (
             f"Ты — эксперт по визуальному сторителлингу и мемам.\n"
             f"Перед тобой текст главы из книги '{title}' автора {author}.\n"
             f"Выбери один абзац (нумерация начинается с единицы от начала главы) и придумай легкий для понимания мем — ироничный, саркастичный, самоироничный, эмоциональный и так далее.\n"
             f"Старайся использовать узнаваемую идею из существующих мемов. \n"
-            f"На меме должно быть изображение сцены или героя или одушевленного предмета плюс слово или ключевая фраза до 5 слов из абзаца на {readable_target_pr} языке.\n"
+            f"Укажи в picture_description описание изображения сцены, героя мема или одушевленного предмета.\n"
+            f"Укажи в picture_phrase слово или ключевую фразу до 5 слов из абзаца на {readable_target_pr} языке.\n"
             f"Напиши короткое лаконичное ТЗ на создание этого мема. Стиль рисования не описывай.\n"
+            f"Верни ответ по формату."
+        )
+
+        system_prompt_comix = (
+            f"Ты — эксперт по визуальному сторителлингу, комиксам и обучению чтению на {readable_target_pr} языке.\n"
+            f"Перед тобой текст главы из книги '{title}' автора {author}.\n"
+            f"Выбери абзац (нумерация начинается с единицы от начала главы), после которого мы добавим комикс для иллюстрации текста – ироничный, самоироничный, эмоциональный и так далее..\n"
+            f"Придумай легкий для понимания комикс про прочитанному до этого абзаца материалу.\n"
+            f"Укажи в picture_phrase какую короткую фразу или фразы из текста на {readable_target_pr} языке, нужно разместить на комиксе.\n"
+            f"Укажи в picture_description имена героев, компоновку комиска, детали внешности героев и обстановки, соответствующие книге.\n"
+            f"Стиль рисования не описывай.\n"
             f"Верни ответ по формату."
         )
 
@@ -61,7 +75,8 @@ def generate_memes_for_book(book_id: int, source_lang: str = "en"):
             completion = client.beta.chat.completions.parse(
                 model="gpt-4.1",
                 messages=[
-                    {"role": "system", "content": system_prompt},
+                    # поменять промт
+                    {"role": "system", "content": system_prompt_comix},
                     {"role": "user", "content": chapter_text[:12000]}
                 ],
                 response_format=MemeIdea
@@ -69,18 +84,13 @@ def generate_memes_for_book(book_id: int, source_lang: str = "en"):
             result = completion.choices[0].message.parsed
 
             para_idx = result.paragraph_index
-            meme_prompt = result.meme_prompt
-            hero_name = result.hero_name
-
-            print(f"🎯 Мем по абзацу {para_idx}: {meme_prompt}\n\n")
-            print(f"🧑 Герой мема: {hero_name}\n\n")
+            meme_prompt = f"Описание комикса: {result.picture_description}\nРазмести текст: {result.picture_phrase}"
 
             generate_meme_image(
                 book_id=book_id,
                 chapter_id=chapter_number,
                 paragraph_id=para_idx,
                 prompt=meme_prompt,
-                hero_name=hero_name,
                 title=title,
                 author=author
             )
@@ -91,12 +101,12 @@ def generate_memes_for_book(book_id: int, source_lang: str = "en"):
         print(f"📈 Прогресс: {round((i + 1) / total_chapters * 100)}%")
 
 
-def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt: str, hero_name: str, title: str, author: str):
+def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt: str, title: str, author: str):
     import base64
     from openai import OpenAI
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    input_folder = Path(f"export/mems/book_{book_id}")
+    input_folder = Path(f"export/pictures/book_{book_id}")
     image_files = list(input_folder.glob("*.webp"))
 
     image_files = []
@@ -117,13 +127,20 @@ def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt
         except Exception:
             continue
 
-    prompt_full = (
+    prompt_full_mem = (
         f"Нарисуй мем по мотивам книги '{title}' автора {author}.\n"
-        f"Мем основан на персонаже {hero_name}. Визуальный стиль и изображение персонажей должен соответствовать другим изображениям, если они даны.\n"
-        f"Описание: {prompt}"
+        f"Визуальный стиль и изображение персонажей должен соответствовать другим изображениям, если они даны.\n"
+        f"{prompt}"
     )
 
-    print(f"🖼 Рисуем: {prompt_full}")
+    prompt_full_comix = (
+        f"Нарисуй комикс по мотивам книги '{title}' автора {author}.\n"
+        f"Визуальный стиль и изображение персонажей должен соответствовать другим изображениям, если они даны.\n"
+        f"{prompt}"
+    )
+
+    # поменять промт
+    print(f"🖼 Параграф {paragraph_id}\nРисуем: {prompt_full_comix}")
     model = "gpt-image-1"
     size = "1024x1024"
 
@@ -132,7 +149,7 @@ def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt
         response = client.images.edit(
             model=model,
             image=image_files,
-            prompt=prompt_full,
+            prompt=prompt_full_comix,   # поменять промт
             n=1,
             size=size,
             user=f"book-meme:{int(datetime.now(timezone.utc).timestamp())}"
@@ -146,7 +163,7 @@ def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt
         print("      🎨 Примеры стиля: отсутствуют")
         response = client.images.generate(
             model=model,
-            prompt=prompt_full,
+            prompt=prompt_full_comix,   # поменять промт
             n=1,
             size=size,
             user=f"book-meme:{int(datetime.now(timezone.utc).timestamp())}"
@@ -157,7 +174,7 @@ def generate_meme_image(book_id: int, chapter_id: int, paragraph_id: int, prompt
         raise ValueError("❌ OpenAI не вернул base64 изображение.")
 
     filepath = Path(
-        f"export/mems/book_{book_id}/book_{book_id}_{chapter_id}_{paragraph_id}.webp")
+        f"export/pictures/book_{book_id}/book_{book_id}_{chapter_id}_{paragraph_id}.webp")
     with open(filepath, "wb") as f:
         f.write(base64.b64decode(image_base64))
     print(f"✅ Сохранено: {filepath}")
