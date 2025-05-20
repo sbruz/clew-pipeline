@@ -55,12 +55,17 @@ def extract_task(task_data, chapter_number, para_number, field):
 
 
 def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, target_langs: list[str]):
+
     print(
         f"🚀 Экспорт книг с ID {book_id_start}–{book_id_end} для языков: {', '.join(target_langs)}")
 
     supabase = get_supabase_client()
     export_dir = Path("export/content")
     export_dir.mkdir(parents=True, exist_ok=True)
+
+    # Проверим наличие папки с иллюстрациями
+    pictures_dir = Path("export/pictures")
+    pictures_exist = pictures_dir.exists()
 
     books_info = []
 
@@ -70,10 +75,6 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
         if not exists_response or not exists_response.data:
             print(f"⏭ Пропуск ID {book_id} — книги нет в таблице books.")
             continue
-
-        # meta_response = supabase.table("books_full_view").select(
-        #    "year, words, genre, set"
-        # ).eq("id", book_id).single().execute()
 
         for target_lang in target_langs:
 
@@ -117,7 +118,6 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
             simplified_text = json.loads(data["text_by_chapters_simplified_sentence_translation_words"]) if data.get(
                 "text_by_chapters_simplified_sentence_translation_words") else None
 
-            # Tasks по типам
             tasks_true_or_false = json.loads(data["tasks_true_or_false"]) if data.get(
                 "tasks_true_or_false") else None
             tasks_true_or_false_s = json.loads(data["tasks_true_or_false_simplified"]) if data.get(
@@ -153,12 +153,23 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 paragraphs = []
                 for orig_p in orig_ch["paragraphs"]:
                     para_num = orig_p["paragraph_number"]
-
                     simp_p = next((p for p in simp_ch.get(
                         "paragraphs", []) if p["paragraph_number"] == para_num), {})
 
+                    # ---- ДОБАВЛЯЕМ picture ----
+                    if pictures_exist:
+                        fname_b = f"book_{book_id}_{chapter_number}_{para_num}_b.webp"
+                        fname_w = f"book_{book_id}_{chapter_number}_{para_num}_w.webp"
+                        file_b = pictures_dir / fname_b
+                        file_w = pictures_dir / fname_w
+                        picture = file_b.exists() and file_w.exists()
+                    else:
+                        picture = False
+                    # ---- КОНЕЦ ДОБАВЛЕНИЯ ----
+
                     paragraphs.append({
                         "paragraph_number": para_num,
+                        "picture": picture,  # ← новый флаг
                         "sentences_original": orig_p.get("sentences", []),
                         "sentences_simplified": simp_p.get("sentences", []),
                         "tasks_original": {
@@ -201,7 +212,6 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "paragraphs": paragraphs_total
             })
 
-    # Сохраняем общий список книг выше папки content
     books_path = export_dir.parent / "books.json"
     with open(books_path, "w", encoding="utf-8") as f:
         json.dump(books_info, f, ensure_ascii=False, indent=2)
