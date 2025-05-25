@@ -1,7 +1,7 @@
-book_id_start: 82
-book_id_end: 93
+book_id_start: 1
+book_id_end: 81
 source_lang: "en"
-target_lang: "es, fr, it, pt, ja, de, tr"     # ru, es, fr, it, pt, ja, de, tr
+target_lang: "ru"     # ru, es, fr, it, pt, ja, de, tr
 
 steps:
   preprocess: false
@@ -13,17 +13,18 @@ steps:
   check_preparation: false
   generate_mems: false
   generate_pictures: false
-  translate_sentences: true                         # 🔠 перевод original текста
-  translate_sentences_simplified: true              # 🔠 перевод адаптированного текста
-  translate_words: true                              # 🔠 добавление слов и их перевод
-  translate_words_simplified: true                   # 🔠 добавление слов и их перевод к адапированному тексту
-  tasks_true_or_false: true
-  tasks_true_or_false_simplified: true
-  tasks_how_to_translate: true
-  tasks_how_to_translate_simplified: true
-  tasks_two_words: true
-  tasks_two_words_simplified: true
+  translate_sentences: false                         # 🔠 перевод original текста
+  translate_sentences_simplified: false              # 🔠 перевод адаптированного текста
+  translate_words: false                              # 🔠 добавление слов и их перевод
+  translate_words_simplified: false                   # 🔠 добавление слов и их перевод к адапированному тексту
+  tasks_true_or_false: false
+  tasks_true_or_false_simplified: false
+  tasks_how_to_translate: false
+  tasks_how_to_translate_simplified: false
+  tasks_two_words: false
+  tasks_two_words_simplified: false
   export: false
+  collect_characters: true
 
   voice_narration: false
   voice_narration_simplified: false
@@ -35,8 +36,21 @@ limits:
 options:
   log_voice: false
   max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит
-  workers: 12
+  workers: 10
 
 styles:
   prompt_black_bg: "High-contrast black background illustration with crisp white lines, hatching, and bold contours; depth and form built through intricate cross-hatching and stippling, with no gray mid-tones. Lighting is dramatic, with highlights sharply defined against deep black shadows. The hand-drawn style is tactile and expressive, featuring intentional line variation and textured details. Emotional depth is conveyed through subtle character gestures, atmospheric lighting, and selective, minimal background elements, keeping the black background uncluttered and clean. The overall composition is intricate and dynamic, using pure black and white to achieve an engraving-like effect that is both graphic and evocative."
   prompt_white_bg: "Focus on the main objects, remove all unnecessary details. Leave spared space white. High-contrast white background illustration with precise black linework, hatching, and bold contours; depth and form created through detailed cross-hatching and stippling, avoiding gray mid-tones. Lighting is crisp and graphic, with shadows rendered in dense, expressive black strokes against a clean white field. The style is tactile and hand-crafted, featuring intentional line variation and rich textures. Emotional depth is achieved through nuanced character poses, subtle facial expressions, and atmospheric background details, infusing the image with mood and narrative presence. The overall composition is intricate and dynamic, using only black ink on white to produce an engraving-like effect that is both visually striking and evocative."
+
+characters:
+  find: true
+  draw: true
+  roles: false
+  comments: false
+
+characters_emotions:
+  neutral_calm: true
+  light_joy_or_confidence: false
+  irony_skepticism: false
+  determination_tension: false
+  vulnerability_sadness: false

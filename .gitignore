@@ -24,6 +24,7 @@ ready_books/
 logs/
 tmp/
 s3sync*
+characters/
 
 # OS
 .DS_Store
