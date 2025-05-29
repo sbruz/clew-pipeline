@@ -1,8 +1,10 @@
 import shutil
 import os
+import re
 import json
 import yaml
 import base64
+import shutil
 from PIL import Image
 from pathlib import Path
 import io
@@ -11,7 +13,7 @@ from openai import OpenAI
 from utils.supabase_client import get_supabase_client
 from schemas.characters import (
     Names, Appearance, CharacterAppearanceSummary, CharactersInParagraph,
-    AppearanceItem, CharacterRoles, CharacterMention, CharacterMentions
+    AppearanceItem, CharacterRoles, CharacterMention, CharacterMentions, ImageVerification
 )
 
 
@@ -603,6 +605,125 @@ def step_comments(book_id, data, paragraphs_with_id, supabase, client):
     print("💬 Генерация реплик персонажей — функция пока не реализована.")
 
 
+def step_verify_character_images(book_id, data, supabase, client):
+    print("\n🔍 Проверка соответствия иллюстраций описанию персонажей...")
+
+    export_dir = Path("./export/characters")
+
+    all_chars = supabase.table("books_characters").select(
+        "id", "name", "first_paragraph").eq("book_id", book_id).execute().data or []
+    if not all_chars:
+        print("  Нет персонажей для проверки.")
+        return
+
+    title = data['title']
+    author = data['author']
+
+    # Гарантируем chapters
+    if "chapters" in data:
+        chapters = data["chapters"]
+    elif "text_by_chapters" in data:
+        chapters = json.loads(data["text_by_chapters"])["chapters"]
+    else:
+        raise KeyError("Нет chapters!")
+
+    # Строим индекс: глобальный абзац -> (глава, номер_в_главе)
+    para_index = {}
+    global_para_num = 1
+    for chapter in chapters:
+        chapter_number = chapter["chapter_number"]
+        for idx, paragraph in enumerate(chapter["paragraphs"], start=1):
+            para_index[global_para_num] = (chapter_number, idx)
+            global_para_num += 1
+
+    for char in all_chars:
+        char_id = char["id"]
+        names = Names.parse_raw(char["name"])
+        first_paragraph = char.get("first_paragraph")
+
+        found_file = None
+        if first_paragraph:
+            chapter_num, para_in_chap = para_index.get(
+                first_paragraph, (None, None))
+            if chapter_num is not None:
+                expected_name = f"book_{book_id}_{chapter_num}_{para_in_chap}.webp"
+                file_path = export_dir / expected_name
+                print(
+                    f"\n🔎 Ожидаем файл для персонажа {names.main}: {expected_name}")
+                if file_path.exists():
+                    found_file = file_path
+                    print(f"    ✅ Файл найден: {found_file.name}")
+                else:
+                    print(f"    ❗ Файл {expected_name} не найден.")
+            else:
+                print(
+                    f"    ❗ Не удалось сопоставить first_paragraph={first_paragraph} для {names.main}")
+
+        if not found_file:
+            print(f"  ❌ Нет изображения для персонажа {names.main}.")
+            continue
+
+        # Загружаем изображение как base64
+        with open(found_file, "rb") as f:
+            img_bytes = f.read()
+            img_b64 = base64.b64encode(img_bytes).decode()
+
+        prompt = (
+            f"Книга: {title}\n"
+            f"Автор: {author}\n"
+            f"Имя персонажа: {names.main}\n"
+            "Посмотри на изображение персонажа и оцени, насколько оно соответствует описанию персонажа в книге по 10-балльной шкале (10 — полное соответствие, 1 — совсем не похоже).\n"
+            "Будет критичен, не ставь сомнительным изображениям, в которым возможна ошибка выше 5."
+            "Если персонаж является обычным несказочным животным, но он изображен с телом человека – ставь 1."
+            "Верни результат строго как объект ImageVerification: verification (целое число от 1 до 10), comment (короткий комментарий на русском, что не так)."
+        )
+
+        try:
+            completion = client.beta.chat.completions.parse(
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {"type": "image_url", "image_url": {
+                                "url": f"data:image/webp;base64,{img_b64}"}}
+                        ]
+                    }
+                ],
+                response_format=ImageVerification
+            )
+            verification_obj = completion.choices[0].message.parsed
+            verification_score = verification_obj.verification
+            comment = verification_obj.comment
+        except Exception as e:
+            print(f"❌ Ошибка при проверке иллюстрации для {names.main}: {e}")
+            verification_score = None
+            comment = f"Ошибка: {e}"
+
+        supabase.table("books_characters").update({
+            "verification": verification_score,
+            "comment": comment
+        }).eq("id", char_id).execute()
+        print(
+            f"  {names.main}: verification = {verification_score}; comment = {comment}")
+
+        # --- Перемещаем файл, если оценка ниже 5 ---
+        if verification_score is not None and verification_score < 5:
+            try:
+                removed_dir = export_dir / "removed"
+                removed_dir.mkdir(parents=True, exist_ok=True)
+                removed_path = removed_dir / found_file.name
+                shutil.move(str(found_file), str(removed_path))
+                print(
+                    f"    🚫 Файл {found_file.name} перемещён в removed из-за низкой оценки ({verification_score})")
+            except Exception as e:
+                print(
+                    f"    ⚠️ Не удалось переместить файл {found_file.name}: {e}")
+
+    print("✅ Проверка иллюстраций завершена.")
+
+
 def get_characters_appearance(
     book_id: int,
     config_path: str = "config.yaml"
@@ -648,3 +769,5 @@ def get_characters_appearance(
         step_draw(book_id, data, paragraphs_with_id, supabase, client)
     if characters_config.get("comments"):
         step_comments(book_id, data, paragraphs_with_id, supabase, client)
+    if characters_config.get("check"):
+        step_verify_character_images(book_id, data, supabase, client)

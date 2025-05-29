@@ -80,3 +80,8 @@ class CharacterMention(BaseModel):
 
 class CharacterMentions(BaseModel):
     mentions: List[CharacterMention]
+
+
+class ImageVerification(BaseModel):
+    verification: int  # оценка 1-10
+    comment: str       # короткий комментарий

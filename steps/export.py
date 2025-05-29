@@ -145,6 +145,10 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                     }]
                 }
 
+            # --------- Вычисляем длины глав -----------
+            chapters_len = [len(ch["paragraphs"])
+                            for ch in original_text["chapters"]]
+
             for orig_ch in original_text["chapters"]:
                 chapter_number = orig_ch["chapter_number"]
                 simp_ch = next((c for c in (simplified_text or {}).get(
@@ -209,7 +213,8 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "source_lang": source_lang,
                 "target_lang": target_lang,
                 "chapters": len(original_text["chapters"]),
-                "paragraphs": paragraphs_total
+                "paragraphs": paragraphs_total,
+                "chapters_len": chapters_len
             })
 
     books_path = export_dir.parent / "books.json"
