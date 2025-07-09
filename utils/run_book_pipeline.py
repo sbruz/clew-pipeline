@@ -8,7 +8,7 @@ def process_book_id(book_id: int):
     from utils.supabase_client import load_book_text, save_formatted_text, get_supabase_client
     from utils.supabase_client import check_supabase_connection
     from utils.elevenlabs_client import get_elevenlabs_voices
-    from steps import preprocess, voice, export, goals, tasks, mems, pictures, characters
+    from steps import preprocess, voice, export, goals, tasks, mems, pictures, characters, embeddings, chapters
     from utils.check_preparation import check_before_translate
 
     load_dotenv()
@@ -133,6 +133,17 @@ def process_book_id(book_id: int):
             max_paragraphs=max_paragraphs
         )
         return
+
+    if steps_enabled.get("embeddings"):
+        embeddings.generate_embedding(book_id=book_id)
+
+    if steps_enabled.get("chapters_title"):
+        chapters.generate_titles(
+            book_id=book_id, book_title=title, book_author=author)
+
+    if steps_enabled.get("chapters_icons"):
+        chapters.generate_icons(
+            book_id=book_id, title=title, author=author)
 
     for lang in target_langs:
         print(f"🌐 Переводим на язык: {lang}")

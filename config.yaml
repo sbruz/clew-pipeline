@@ -1,7 +1,7 @@
 book_id_start: 1
-book_id_end: 93
+book_id_end: 30
 source_lang: "en"
-target_lang: "ru, es, fr, it, pt, ja, de, tr"     # ru, es, fr, it, pt, ja, de, tr
+target_lang: "ru"     # ru, es, fr, it, pt, ja, de, tr
 
 steps:
   preprocess: false
@@ -23,9 +23,11 @@ steps:
   tasks_how_to_translate_simplified: false
   tasks_two_words: false
   tasks_two_words_simplified: false
-  export: true
+  export: false
   collect_characters: false
-
+  embeddings: false
+  chapters_title: false
+  chapters_icons: true
   voice_narration: false
   voice_narration_simplified: false
 
@@ -36,7 +38,7 @@ limits:
 options:
   log_voice: false
   max_voiced_paragraphs: -1                           # сколько абзацев озвучить: -1 безлимит
-  workers: 1
+  workers: 10
 
 styles:
   prompt_black_bg: "High-contrast black background illustration with crisp white lines, hatching, and bold contours; depth and form built through intricate cross-hatching and stippling, with no gray mid-tones. Lighting is dramatic, with highlights sharply defined against deep black shadows. The hand-drawn style is tactile and expressive, featuring intentional line variation and textured details. Emotional depth is conveyed through subtle character gestures, atmospheric lighting, and selective, minimal background elements, keeping the black background uncluttered and clean. The overall composition is intricate and dynamic, using pure black and white to achieve an engraving-like effect that is both graphic and evocative."
