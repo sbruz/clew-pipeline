@@ -55,12 +55,11 @@ def extract_task(task_data, chapter_number, para_number, field):
 
 
 def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, target_langs: list[str]):
-
     print(
         f"🚀 Экспорт книг с ID {book_id_start}–{book_id_end} для языков: {', '.join(target_langs)}")
 
     supabase = get_supabase_client()
-    export_dir = Path("export/content")
+    export_dir = Path("export/content_v1_5")
     export_dir.mkdir(parents=True, exist_ok=True)
 
     # Проверим наличие папки с иллюстрациями
@@ -68,16 +67,26 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
     pictures_exist = pictures_dir.exists()
 
     books_info = []
+    embeddings_info = []
 
     for book_id in tqdm(range(book_id_start, book_id_end + 1), desc="📦 Книги", unit="кн"):
-        exists_response = supabase.table("books").select(
-            "id").eq("id", book_id).maybe_single().execute()
-        if not exists_response or not exists_response.data:
+        # Получаем embedding книги (один для всех языков)
+        book_info_response = supabase.table("books").select(
+            "id, embedding"
+        ).eq("id", book_id).maybe_single().execute()
+        if not book_info_response or not book_info_response.data:
             print(f"⏭ Пропуск ID {book_id} — книги нет в таблице books.")
             continue
+        book_embedding = book_info_response.data.get("embedding", None)
+
+        # Добавляем embedding только один раз
+        if book_embedding is not None and not any(e['id'] == f"book_{book_id}" for e in embeddings_info):
+            embeddings_info.append({
+                "id": f"book_{book_id}",
+                "embedding": book_embedding
+            })
 
         for target_lang in target_langs:
-
             meta_response = supabase.table("book_export_view").select(
                 "year, words, genre, set"
             ).eq("book_id", book_id).eq("language", target_lang).maybe_single().execute()
@@ -102,7 +111,8 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "tasks_truefalse_howto, "
                 "tasks_truefalse_howto_simplified, "
                 "tasks_truefalse_howto_words, "
-                "tasks_truefalse_howto_words_simplified"
+                "tasks_truefalse_howto_words_simplified, "
+                "chapters_titles_translations"
             ).eq("book_id", book_id).eq("language", target_lang).maybe_single().execute()
 
             if not trans_response.data:
@@ -112,6 +122,14 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
             data = trans_response.data
             localized_title = data.get("title", "")
             localized_author = data.get("author", "")
+
+            # --- Загружаем переводы title для глав (не забываем, что это структура с главами)
+            chapter_titles_translated = None
+            try:
+                chapter_titles_translated = json.loads(data.get(
+                    "chapters_titles_translations", "")) if data.get("chapters_titles_translations") else None
+            except Exception:
+                chapter_titles_translated = None
 
             original_text = json.loads(data["text_by_chapters_sentence_translation_words"]) if data.get(
                 "text_by_chapters_sentence_translation_words") else None
@@ -154,13 +172,27 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 simp_ch = next((c for c in (simplified_text or {}).get(
                     "chapters", []) if c["chapter_number"] == chapter_number), {})
 
+                # --- Ищем title для главы ---
+                translated_title = None
+                if chapter_titles_translated and "chapters" in chapter_titles_translated:
+                    chapter_item = next((c for c in chapter_titles_translated["chapters"] if c.get(
+                        "chapter_number") == chapter_number), None)
+                    if chapter_item:
+                        translated_title = chapter_item.get("title")
+
+                # ---- Ошибка, если не найден заголовок ----
+                if not translated_title:
+                    print(
+                        f"⛔️ ОШИБКА: Не найден перевод заголовка для книги ID {book_id}, язык {target_lang}, глава {chapter_number}!")
+                    raise RuntimeError(
+                        f"Не найден перевод заголовка для книги ID {book_id}, язык {target_lang}, глава {chapter_number}")
+
                 paragraphs = []
                 for orig_p in orig_ch["paragraphs"]:
                     para_num = orig_p["paragraph_number"]
                     simp_p = next((p for p in simp_ch.get(
                         "paragraphs", []) if p["paragraph_number"] == para_num), {})
 
-                    # ---- ДОБАВЛЯЕМ picture ----
                     if pictures_exist:
                         fname_b = f"book_{book_id}_{chapter_number}_{para_num}_b.webp"
                         fname_w = f"book_{book_id}_{chapter_number}_{para_num}_w.webp"
@@ -169,11 +201,10 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                         picture = file_b.exists() and file_w.exists()
                     else:
                         picture = False
-                    # ---- КОНЕЦ ДОБАВЛЕНИЯ ----
 
                     paragraphs.append({
                         "paragraph_number": para_num,
-                        "picture": picture,  # ← новый флаг
+                        "picture": picture,
                         "sentences_original": orig_p.get("sentences", []),
                         "sentences_simplified": simp_p.get("sentences", []),
                         "tasks_original": {
@@ -188,8 +219,10 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                         }
                     })
 
+                # --- title сразу после chapter_number ---
                 chapter_data = {
                     "chapter_number": chapter_number,
+                    "title": translated_title,
                     "paragraphs": paragraphs
                 }
 
@@ -202,6 +235,7 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
             paragraphs_total = sum(len(ch["paragraphs"])
                                    for ch in original_text["chapters"])
 
+            # -------- books_info: embedding книги УБРАН ---------
             books_info.append({
                 "id": f"book_{book_id}",
                 "title": localized_title,
@@ -215,9 +249,15 @@ def export_book_json(book_id_start: int, book_id_end: int, source_lang: str, tar
                 "chapters": len(original_text["chapters"]),
                 "paragraphs": paragraphs_total,
                 "chapters_len": chapters_len
+                # Больше нет "embedding"!
             })
 
-    books_path = export_dir.parent / "books.json"
+    books_path = export_dir.parent / "books_v1_5.json"
     with open(books_path, "w", encoding="utf-8") as f:
         json.dump(books_info, f, ensure_ascii=False, indent=2)
     print(f"\n📘 Экспорт завершён. Список книг сохранён в: {books_path}")
+
+    embeddings_path = export_dir.parent / "embeddings.json"
+    with open(embeddings_path, "w", encoding="utf-8") as f:
+        json.dump(embeddings_info, f, ensure_ascii=False, indent=2)
+    print(f"\n📊 Embeddings сохранены в: {embeddings_path}")

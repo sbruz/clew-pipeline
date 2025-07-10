@@ -3,17 +3,31 @@ import json
 import time
 import glob
 import base64
+import google.generativeai as genai
 from openai import OpenAI
 from utils.supabase_client import get_supabase_client
 from PIL import Image
 from PIL import ImageEnhance
 from io import BytesIO
 
-
-ICON_STYLE = "Bold, icon-optimized stylized illustration with high visual clarity at small sizes; characters shown in close-up or bust format with simplified, expressive forms and thick, readable silhouettes; flat or slightly gradient shading with minimal texture for sharp edge definition; strong contrast between character and background — clean color blocking and focused rim lighting for instant legibility; color palette tuned for recognizability: vibrant key tones (warm reds, cool cyans, bright yellows) over muted or monochrome backdrops; minimalistic composition with centered framing and balanced negative space; no visual noise or fine details that blur when downscaled; illustration rendered on a solid, non-transparent background for consistent appearance across all platforms; evokes personality and clarity in a format designed for avatars, buttons, app icons, and UI thumbnails."
+ICON_STYLE_PAOLINI = "Cheerful, storybook illustration style with playful ink lines and bright, soft watercolors; friendly, round-faced characters in simple, expressive poses; light, sunny palette with creamy whites, warm yellows, and cheerful greens; scenes filled with animals, flowers, and handcrafted details; evokes joy, innocence, and a gentle sense of adventure — perfect for light-hearted fantasy or cozy rural tales."
+ICON_STYLE = "Bold, optimized for high visual clarity at small sizes illustration; characters shown in close-up or bust format with simplified, expressive forms and thick, readable silhouettes; flat or slightly gradient shading with minimal texture for sharp edge definition; strong contrast between character and background — clean color blocking and focused rim lighting for instant legibility; color palette tuned for recognizability: vibrant key tones (warm reds, cool cyans, bright yellows) over muted or monochrome backdrops; minimalistic composition with centered framing and balanced negative space; no visual noise or fine details that blur when downscaled; illustration rendered on a solid, non-transparent background for consistent appearance across all platforms; evokes personality and clarity in a format designed for avatars, buttons, app icons, and UI thumbnails."
+ICON_STYLE_ICON = "Bold, icon-optimized stylized illustration with high visual clarity at small sizes; characters shown in close-up or bust format with simplified, expressive forms and thick, readable silhouettes; flat or slightly gradient shading with minimal texture for sharp edge definition; strong contrast between character and background — clean color blocking and focused rim lighting for instant legibility; color palette tuned for recognizability: vibrant key tones (warm reds, cool cyans, bright yellows) over muted or monochrome backdrops; minimalistic composition with centered framing and balanced negative space; no visual noise or fine details that blur when downscaled; illustration rendered on a solid, non-transparent background for consistent appearance across all platforms; evokes personality and clarity in a format designed for avatars, buttons, app icons, and UI thumbnails."
 ICON_STYLE_GOOD_LIGHTER = "Bold illustration with high visual clarity at small sizes; characters shown in close-up or bust format with simplified, expressive forms and thick, readable silhouettes; flat or slightly gradient shading with minimal texture for sharp edge definition; strong contrast between character and background — clean color blocking and focused rim lighting for instant legibility; color palette tuned for recognizability: vibrant key tones over muted or monochrome backdrops; minimalistic composition with centered framing and balanced negative space; no visual noise or fine details that blur when downscaled; icon rendered on a solid, non-transparent background for consistent appearance across all platforms; evokes personality and clarity in a format designed for avatars, buttons, app icons, and UI thumbnails. Use a slightly brighter palette, preserving contrast but shifting away from overly dark or muted tones."
 ICON_STYLE_LIGHT_DISNEY = "Stylized digital illustration with a clean, high-clarity look optimized for modern UI thumbnails and avatars. Characters appear in close-up or bust format with bold, simplified forms and smooth, readable contours. Shading is flat or uses subtle soft gradients with no heavy textures, giving a polished, digital-native feel. Strong silhouette design and rim lighting enhance edge separation. Color palette emphasizes slightly brighter, saturated key tones layered over soft desaturated backgrounds for visual pop — avoiding muddy or overly dark tones. Composition is tightly framed, centered, with minimal internal padding and no visual clutter. No transparency; background is solid and consistent. Designed to retain character and emotion even at small scales — with a contemporary gloss, UI friendliness, and cross-platform adaptability."
 ICON_STYLE_BRIGHT = "Bold, icon-optimized stylized illustration with high visual clarity at small sizes; characters shown in close-up or bust format with simplified, expressive forms and thick, readable silhouettes; flat or slightly gradient shading with minimal texture for sharp edge definition; strong contrast between character and background — clean color blocking and focused rim lighting for instant legibility; color palette tuned for recognizability: vibrant key tones (warm reds, cool cyans, bright yellows) over softened, gently tinted backdrops instead of dark or muted tones; overall brightness slightly elevated to avoid murky or overly shadowed areas, ensuring a light, approachable feel; minimalistic composition with centered framing and balanced negative space; no visual noise or fine details that blur when downscaled; illustration rendered on a solid, non-transparent background for consistent appearance across all platforms; evokes personality and clarity in a format designed for avatars, buttons, app icons, and UI thumbnails."
+
+LANG_NAME_RU_CASE = {
+    "ru": "русский",
+    "en": "английский",
+    "es": "испанский",
+    "fr": "французский",
+    "it": "итальянский",
+    "ja": "японский",
+    "pt": "португальский",
+    "tr": "турецкий",
+    "de": "немецкий",
+}
 
 
 def generate_titles(book_id: int, book_title: str, book_author: str):
@@ -411,3 +425,161 @@ def generate_icons(book_id: int, title: str, author: str):
         print("***************************************************************")
     else:
         print("\nВСЕ ИКОНКИ УСПЕШНО СГЕНЕРИРОВАНЫ!")
+
+
+def refine_title_with_gemini_sdk(book_title, book_author, orig_title, title, target_lang):
+    try:
+        lang_names = {
+            "ru": "русский",
+            "en": "английский",
+            "es": "испанский",
+            "fr": "французский",
+            "it": "итальянский",
+            "ja": "японский",
+            "pt": "португальский",
+            "tr": "турецкий",
+            "de": "немецкий",
+        }
+        lang_name = lang_names.get(target_lang, target_lang)
+
+        prompt = (
+            f"Проверь этот перевод оригинального заголовка '{orig_title}' главы из книги {book_title} автора {book_author} на {lang_name} язык:\n"
+            f"'{title}'\n\n"
+            "Если перевод звучит ествественно и не искажает смысл оригинала, то верни его без изменений.\n"
+            "Если же есть очень грубая ошибка - исправь.\n"
+            "Верни только перевод, без кавычек, без пояснений.\n\n"
+        )
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        response = model.generate_content(prompt)
+
+        new_title = response.text.strip()
+        if new_title and new_title.lower() != title.lower():
+            print(f"   Gemini корректировка: {new_title}")
+            return new_title
+        return title
+    except Exception as e:
+        print(f"   Gemini ❌ Ошибка проверки заголовка: {e}")
+        return title
+
+
+def translate_titles(
+    book_id: int,
+    source_field: str,
+    result_field: str,
+    target_lang: str,
+    gemini_refine: bool = True
+):
+    supabase = get_supabase_client()
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    print(f"TRANSLATE[{book_id}] 📥 Загружаем {source_field}...")
+    response = supabase.table("books").select(
+        f"{source_field}, title, author"
+    ).eq("id", book_id).single().execute()
+    book_data = response.data
+    if not book_data or not book_data.get(source_field):
+        print(f"TRANSLATE[{book_id}] ❌ Нет {source_field} для книги.")
+        return
+
+    source_json = json.loads(book_data[source_field])
+    book_title = book_data.get("title", "")
+    book_author = book_data.get("author", "")
+
+    lang_name = LANG_NAME_RU_CASE.get(target_lang, target_lang)
+    chapters = source_json.get("chapters", [])
+    result = {"chapters": []}
+
+    for idx, chapter in enumerate(chapters):
+        chapter_number = idx + 1
+        orig_title = chapter.get("title", "").strip()
+        if not orig_title:
+            print(
+                f"TRANSLATE[{book_id}] ⚠️ Нет title для главы {chapter_number}. Пропускаем.")
+            continue
+
+        print(
+            f"TRANSLATE[{book_id}] 🌎 Глава {chapter_number}: Переводим заголовок...")
+
+        # Формируем промт на перевод
+        prompt = (
+            f"Переведи следующий заголовок главы книги '{book_title}' автора {book_author} на {lang_name} язык. "
+            f"Это заголовок главы номер {chapter_number}. Сделай перевод естественным для носителя языка, живым и лаконичным. "
+            f"Сохрани суть и привлекательность заголовка.\n\n"
+            f"Заголовок: {orig_title}\n"
+            f"Верни только перевод, без кавычек, без пояснений."
+        )
+
+        translation = None
+        for attempt in range(3):
+            try:
+                completion = client.beta.chat.completions.parse(
+                    model="gpt-4.1",
+                    messages=[
+                        {"role": "system", "content": prompt},
+                    ]
+                )
+                translation = completion.choices[0].message.content.strip()
+                print(f"TRANSLATE[{book_id}] ✅ Перевод: {translation}")
+                break
+            except Exception as e:
+                print(
+                    f"TRANSLATE[{book_id}] ❌ Ошибка при переводе (попытка {attempt+1}): {e}")
+                time.sleep(1)
+        if not translation:
+            print(
+                f"TRANSLATE[{book_id}] ❌ Не удалось перевести title для главы {chapter_number}. Пропускаем.")
+            continue
+
+        # Gemini: refine if needed
+        if gemini_refine:
+            translation = refine_title_with_gemini_sdk(
+                book_title, book_author, orig_title, translation, target_lang)
+
+        # Доп. цикл — если слишком длинно, просим короче
+        while len(translation) > 55:
+            print(
+                f"TRANSLATE[{book_id}] 🔄 Перевод длиннее 55 символов, просим короче...")
+            shorten_prompt_direct = (
+                f"Сделай чуть чуть короче этот перевод заголовка главы {chapter_number} книги '{book_title}' автора {book_author} на {lang_name} язык. "
+                f"Сохрани естественность, смысл и легкость чтения.\n"
+                f"Перевод: '{translation}'\n"
+                f"Оригинал: '{orig_title}'\n"
+                f"Верни только перевод, без кавычек и пояснений."
+            )
+            shorten_prompt_reprase = (
+                f"Перефразируй перевод заголовка главы {chapter_number} книги '{book_title}' автора {book_author} на {lang_name} язык, чтобы он был не дословным, а более естественным, и при этом он был чуть чуть покороче. "
+                f"Сохрани естественность, смысл и легкость чтения.\n"
+                f"Перевод: '{translation}'\n"
+                f"Оригинал: '{orig_title}'\n"
+                f"Верни только перевод, без кавычек и пояснений."
+            )
+            try:
+                completion = client.beta.chat.completions.parse(
+                    model="gpt-4.1",
+                    messages=[
+                        {"role": "system", "content": shorten_prompt_reprase},
+                    ]
+                )
+                translation = completion.choices[0].message.content.strip()
+                print(f"TRANSLATE[{book_id}] ✅ Новый перевод: {translation}")
+                # Gemini-проверка для укороченного варианта
+                if gemini_refine:
+                    translation = refine_title_with_gemini_sdk(
+                        book_title, book_author, orig_title, translation, target_lang)
+            except Exception as e:
+                print(f"TRANSLATE[{book_id}] ❌ Ошибка при сокращении: {e}")
+                break
+
+        # Добавляем в результат (без summary!)
+        result["chapters"].append({
+            "chapter_number": chapter_number,
+            "title": translation
+        })
+
+    # Сохраняем результат в books_translations
+    print(f"TRANSLATE[{book_id}] 💾 Сохраняем результат в {result_field}...")
+    supabase.table("books_translations").update(
+        {result_field: json.dumps(result, ensure_ascii=False, indent=2)}
+    ).eq("book_id", book_id).eq("language", target_lang).execute()
+    print(f"TRANSLATE[{book_id}] ✅ Переводы сохранены.")

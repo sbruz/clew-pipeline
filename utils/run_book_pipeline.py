@@ -250,5 +250,14 @@ def process_book_id(book_id: int):
                 target_lang=lang
             )
 
+        if steps_enabled.get("chapters_title_translate"):
+            chapters.translate_titles(
+                book_id=book_id,
+                source_field="chapters_titles",
+                result_field="chapters_titles_translations",
+                target_lang=lang,
+                gemini_refine=False
+            )
+
     print(
         f"🔧 [PID {pid}] [{proc_name}] ✅ Обработка книги ID {book_id} завершена")
